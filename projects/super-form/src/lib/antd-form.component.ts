@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, OnChanges, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+// import 'rxjs/add/operator/take';
 import { FieldConfig } from './interface';
+import { CheckboxValuePosterService } from './service/checkbox-value-poster.service';
 
 
 @Component({
@@ -41,8 +44,7 @@ export class FormComponent implements OnInit, OnChanges {
 
 
   constructor(
-    private fb: FormBuilder
-    // ,private service: CheckboxValuePosterService
+    private fb: FormBuilder, private service: CheckboxValuePosterService
   ) {
   }
 
@@ -53,7 +55,7 @@ export class FormComponent implements OnInit, OnChanges {
   ngOnChanges() {
     console.log(1);
     if (this.form) {
-      // this.service.clearValue();
+      this.service.clearValue();
       const settedControls = Object.keys(this.form['controls']);
       const controlToSet = this.controlConfigs.map(item => item.name);
       settedControls

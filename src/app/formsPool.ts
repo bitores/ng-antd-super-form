@@ -21,7 +21,7 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       validations: [Validators.required]
     },
     {
-      label: 'Submit',
+      label: '提交',
       name: 'submit',
       type: 'button',
       disabled: false,

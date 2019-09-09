@@ -1,13 +1,30 @@
 import { Directive, Input, Type, ComponentRef, ComponentFactoryResolver, ViewContainerRef, OnChanges, OnInit } from '@angular/core';
+// import {
+//   NzInputNumberComponent,
+//   NzCalendarComponent,
+//   NzCardComponent,
+//   NzSelectComponent,
+//   NzRadioComponent,
+//   NzOptionComponent,
+//   NzCheckboxComponent,
+//   NzButtonComponent
+// } from 'ng-zorro-antd';
+
+import { FormButtonComponent } from './button.component';
+import { FormCheckboxComponent } from './checkbox.component';
+import { FormInputComponent } from './input.component';
+import { FormRadioComponent } from './radio.component';
+import { FormSelectComponent } from './select.component';
+
 import { FormGroup } from '@angular/forms';
 import { FieldConfig, Field } from '../interface';
 
 
 const components: { [type: string]: Type<Field> } = {
-  // input: FormInputComponent,
-  // button: FormButtonComponent,
-  // select: FormSelectComponent,
-  // radio: FormRadioComponent,
+  input: FormInputComponent,
+  button: FormButtonComponent,
+  select: FormSelectComponent,
+  radio: FormRadioComponent,
   // checkbox: FormCheckboxComponent
 };
 @Directive({

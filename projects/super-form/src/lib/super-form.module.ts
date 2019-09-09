@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { SuperFormComponent } from './super-form.component';
 import { FormComponent } from './antd-form.component';
 import { DynamicFieldDirective } from './builder/dynamic-field.directive';
+import { FieldConfig } from './interface';
 
 
 
@@ -26,7 +27,7 @@ import { DynamicFieldDirective } from './builder/dynamic-field.directive';
 export class SuperFormModule implements OnChanges, OnInit {
 
   @Input()
-  config: any;
+  config: FieldConfig[];
 
   @Input()
   group: FormGroup;

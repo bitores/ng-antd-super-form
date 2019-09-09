@@ -11,7 +11,7 @@ import { formsPool } from './formsPool';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements AfterViewInit {
-  @ViewChild('antd-Form', { static: true })
+  @ViewChild('antd-Form', { static: false })
   dynamicForm: FormComponent;
 
   formFieldConfigs = formsPool['food'];
@@ -41,7 +41,7 @@ export class AppComponent implements AfterViewInit {
 
   changeForm(formType) {
     this.formFieldConfigs = formsPool[formType];
-    this.dynamicForm.setDisabled('submit', true);
+    this.dynamicForm.setDisabled('submit', false);
   }
 
 }

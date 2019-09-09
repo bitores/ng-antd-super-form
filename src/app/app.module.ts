@@ -17,12 +17,36 @@ const icons: IconDefinition[] = Object.values(ff);
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { FormButtonComponent } from 'projects/super-form/src/lib/builder/button.component';
+import { FormCheckboxComponent } from 'projects/super-form/src/lib/builder/checkbox.component';
+import { FormInputComponent } from 'projects/super-form/src/lib/builder/input.component';
+import { FormRadioComponent } from 'projects/super-form/src/lib/builder/radio.component';
+import { FormSelectComponent } from 'projects/super-form/src/lib/builder/select.component';
+import { DynamicFieldDirective } from 'projects/super-form/src/lib/builder/dynamic-field.directive';
+import { CheckboxValuePosterService } from 'projects/super-form/src/lib/service/checkbox-value-poster.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
+import { FormGroup } from '@angular/forms';
+
 registerLocaleData(zh);
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FormButtonComponent,
+    FormCheckboxComponent,
+    FormInputComponent,
+    FormRadioComponent,
+    FormSelectComponent,
+  ],
+  entryComponents: [
+    FormButtonComponent,
+    FormCheckboxComponent,
+    FormInputComponent,
+    FormRadioComponent,
+    FormSelectComponent
   ],
   imports: [
     BrowserModule,
@@ -31,11 +55,14 @@ registerLocaleData(zh);
     /** 导入 ng-zorro-antd 模块 **/
     NgZorroAntdModule,
     //
-    SuperFormModule
+    SuperFormModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },
-    { provide: NZ_ICONS, useValue: icons }
+    { provide: NZ_ICONS, useValue: icons },
+    CheckboxValuePosterService
   ],
   bootstrap: [AppComponent]
 })
