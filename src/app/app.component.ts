@@ -1,0 +1,47 @@
+import { Component, ViewChild, AfterViewInit, ChangeDetectorRef, OnChanges, ViewEncapsulation } from '@angular/core';
+import { Validators } from '@angular/forms';
+
+import { FormComponent } from 'projects/super-form/src/lib/antd-form.component';
+import { formsPool } from './formsPool';
+
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.less']
+})
+export class AppComponent implements AfterViewInit {
+  @ViewChild('antd-Form', { static: true })
+  dynamicForm: FormComponent;
+
+  formFieldConfigs = formsPool['food'];
+
+  constructor(private cdr: ChangeDetectorRef) {
+
+  }
+
+  onSubmit(event) {
+    console.log(event);
+  }
+  ngAfterViewInit() {
+    console.log(3);
+    // let previousValid = this.dynamicForm.valid;
+    // this.dynamicForm.changes
+    //   .subscribe(val => {
+    //     if (previousValid !== this.dynamicForm.valid) {
+    //       previousValid = this.dynamicForm.valid;
+    //       this.dynamicForm.setDisabled('submit', !previousValid);
+    //     }
+    //   });
+    //   setTimeout(() => {
+    //     this.dynamicForm.setDisabled('submit', true);
+    //   });
+
+  }
+
+  changeForm(formType) {
+    this.formFieldConfigs = formsPool[formType];
+    this.dynamicForm.setDisabled('submit', true);
+  }
+
+}
