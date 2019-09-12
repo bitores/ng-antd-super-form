@@ -1,7 +1,9 @@
 import { Component, ViewChild, AfterViewInit, ChangeDetectorRef, OnChanges, ViewEncapsulation } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Observable, Observer } from 'rxjs';
 
-import { FormComponent } from 'projects/super-form/src/lib/antd-form.component';
+
+import { FormComponent } from 'projects/super-form/src/lib/dynamic-form.component';
 import { formsPool } from './formsPool';
 
 
@@ -11,37 +13,39 @@ import { formsPool } from './formsPool';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements AfterViewInit {
-  @ViewChild('antd-Form', { static: false })
+  @ViewChild('dynamicForm', { static: false })
   dynamicForm: FormComponent;
 
-  formFieldConfigs = formsPool['food'];
-
-  constructor(private cdr: ChangeDetectorRef) {
-
+  layout = 'horizontal';
+  formLayout = {
+    labelCol: 6,
+    wrapperCol: 14
   }
+  formFieldConfigs = formsPool['data'];
+
+  constructor(private cdr: ChangeDetectorRef) { }
 
   onSubmit(event) {
     console.log(event);
   }
   ngAfterViewInit() {
     console.log(3);
-    // let previousValid = this.dynamicForm.valid;
-    // this.dynamicForm.changes
-    //   .subscribe(val => {
-    //     if (previousValid !== this.dynamicForm.valid) {
-    //       previousValid = this.dynamicForm.valid;
-    //       this.dynamicForm.setDisabled('submit', !previousValid);
-    //     }
-    //   });
-    //   setTimeout(() => {
-    //     this.dynamicForm.setDisabled('submit', true);
-    //   });
+    let previousValid = this.dynamicForm.valid;
+    this.dynamicForm.changes
+      .subscribe(val => {
+        if (previousValid !== this.dynamicForm.valid) {
+          previousValid = this.dynamicForm.valid;
+          this.dynamicForm.setDisabled('submit', !previousValid);
+        }
+      });
+    setTimeout(() => {
+      this.dynamicForm.setDisabled('submit', true);
+    });
 
   }
 
   changeForm(formType) {
     this.formFieldConfigs = formsPool[formType];
-    this.dynamicForm.setDisabled('submit', false);
+    this.dynamicForm.setDisabled('submit', true);
   }
-
 }

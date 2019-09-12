@@ -1,2 +1,5 @@
 <!-- <ng-antd-super-form></ng-antd-super-form> -->
-<antd-form #dynamicForm [configs]="formFieldConfigs" (submit)="onSubmit($event)"></antd-form>
+<dynamic-form #dynamicForm [layout]="layout" [formLayout]="formLayout" [configs]="formFieldConfigs"
+  (submit)="onSubmit($event)">
+</dynamic-form>
+<dynamic-table></dynamic-table>

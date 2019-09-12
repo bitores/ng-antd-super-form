@@ -1,45 +1,27 @@
-import { Directive, Input, Type, ComponentRef, ComponentFactoryResolver, ViewContainerRef, OnChanges, OnInit } from '@angular/core';
-// import {
-//   NzInputNumberComponent,
-//   NzCalendarComponent,
-//   NzCardComponent,
-//   NzSelectComponent,
-//   NzRadioComponent,
-//   NzOptionComponent,
-//   NzCheckboxComponent,
-//   NzButtonComponent
-// } from 'ng-zorro-antd';
-
-import { FormButtonComponent } from './button.component';
-import { FormCheckboxComponent } from './checkbox.component';
-import { FormInputComponent } from './input.component';
-import { FormRadioComponent } from './radio.component';
-import { FormSelectComponent } from './select.component';
-
+import { Directive, Input, ComponentRef, ComponentFactoryResolver, ViewContainerRef, OnChanges, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+
 import { FieldConfig, Field } from '../interface';
+import { CheckboxValuePosterService } from '../service/checkbox-value-poster.service'
+
+import { components } from '../builder/index';
 
 
-const components: { [type: string]: Type<Field> } = {
-  input: FormInputComponent,
-  button: FormButtonComponent,
-  select: FormSelectComponent,
-  radio: FormRadioComponent,
-  // checkbox: FormCheckboxComponent
-};
 @Directive({
-  selector: '[appDynamicField][config][group]'
+  selector: '[appDynamicField][config][group][formLayout]'
 })
 export class DynamicFieldDirective implements OnChanges, OnInit {
   @Input()
   config: FieldConfig;
   @Input()
   group: FormGroup;
+  @Input()
+  formLayout: object;
   component: ComponentRef<Field>;
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private viewcontainerRef: ViewContainerRef
-    // ,private service: CheckboxValuePosterService
+    , private service: CheckboxValuePosterService
   ) {
 
   }
@@ -47,6 +29,7 @@ export class DynamicFieldDirective implements OnChanges, OnInit {
     if (this.component) {
       this.component.instance.config = this.config;
       this.component.instance.group = this.group;
+      this.component.instance.formLayout = this.formLayout;
     }
   }
   ngOnInit() {
@@ -60,5 +43,6 @@ export class DynamicFieldDirective implements OnChanges, OnInit {
     this.component = this.viewcontainerRef.createComponent(componetFactory);
     this.component.instance.config = this.config;
     this.component.instance.group = this.group;
+    this.component.instance.formLayout = this.formLayout;
   }
 }

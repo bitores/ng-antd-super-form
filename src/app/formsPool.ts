@@ -2,94 +2,60 @@ import { Validators } from '@angular/forms';
 import { FieldConfig } from 'projects/super-form/src/lib/interface';
 
 export const formsPool: { [formType: string]: FieldConfig[] } = {
-  food: [
+  data: [
     {
       type: 'input',
       label: '喜欢的食物',
-      name: 'foodName',
+      key: 'foodName',
       placeholder: '汉堡',
       disabled: false,
-      validations: [Validators.required, Validators.minLength(2)]
+      validations: [Validators.required, Validators.minLength(4)],
+      errorTip: '请输入你喜欢的食物',
+      hasFeedback: true,
+      // visible: false
     },
     {
       type: 'select',
       label: '喜欢的食物种类',
-      name: 'foodType',
-      options: ['西式快餐', '川菜', '粤菜', '烧烤麻辣烫'],
+      key: 'foodType',
+      options: [
+        {
+          label: '西式快餐',
+          value: '0'
+        },
+        {
+          label: '川菜',
+          value: '1'
+        },
+        {
+          label: '粤菜',
+          value: '2'
+        },
+        {
+          label: '烧烤麻辣烫',
+          value: '3'
+        },
+      ],
       disabled: false,
       placeholder: '请选择',
       validations: [Validators.required]
     },
     {
       label: '提交',
-      name: 'submit',
+      key: 'submit',
       type: 'button',
       disabled: false,
-    }
-  ],
-  music: [
-    {
-      type: 'input',
-      label: '喜欢的音乐人',
-      name: 'singerName',
-      placeholder: '泽野弘之',
-      disabled: false,
-      validations: [Validators.required, Validators.minLength(2)]
-    },
-    {
-      type: 'input',
-      label: '喜欢的歌',
-      name: 'song',
-      placeholder: '等你下课',
-      disabled: false,
-      validations: [Validators.required]
-    },
-    {
-      type: 'checkbox',
-      label: '感兴趣的音乐种类',
-      name: 'musicTypeLike',
-      options: ['说唱', '爵士', '嘻哈', '古典', '蓝调'],
-      disabled: false,
-      placeholder: '选择你感兴趣的种类',
-      validations: [Validators.required]
-    },
-    {
-      type: 'checkbox',
-      label: '讨厌的音乐种类',
-      name: 'musicTypeHate',
-      options: ['说唱', '爵士', '嘻哈', '古典', '蓝调'],
-      disabled: false,
-      placeholder: '选择你感兴趣的种类',
-      validations: [Validators.required]
-    },
-    {
-      label: 'Submit',
-      name: 'submit',
-      type: 'button',
-      disabled: false,
-    }
-  ],
-  movie: [
-    {
-      type: 'input',
-      label: '感兴趣的电影',
-      name: 'movieName',
-      placeholder: '请输入',
-      disabled: false,
-      validations: [Validators.required]
-    },
-    {
-      label: '喜欢的等级',
-      name: 'like',
-      options: ['喜欢', '非常喜欢', '特别喜欢', '超级喜欢'],
-      type: 'radio',
-      disabled: false,
-    },
-    {
-      label: 'Submit',
-      name: 'submit',
-      type: 'button',
-      disabled: false,
+      buttonType: 'primary',
+      formLayout: {
+        wrapperCol: {
+          span: 14,
+          offset: 6
+        }
+      },
+      icon: 'plus'
+      // block: true,
+      // size: 'small',
+      // shape: 'circle'
     }
   ]
 };

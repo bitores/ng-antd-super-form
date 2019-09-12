@@ -3,15 +3,15 @@ import { CommonModule } from "@angular/common";
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { SuperFormComponent } from './super-form.component';
-import { FormComponent } from './antd-form.component';
-import { DynamicFieldDirective } from './builder/dynamic-field.directive';
+import { FormComponent } from './dynamic-form.component';
+import { DynamicFieldDirective } from './directives/dynamic-field.directive';
 import { FieldConfig } from './interface';
 
 
 
 
 @NgModule({
-  declarations: [SuperFormComponent, FormComponent, DynamicFieldDirective],
+  declarations: [SuperFormComponent],
   imports: [
     NgZorroAntdModule,
     FormsModule,
@@ -22,7 +22,7 @@ import { FieldConfig } from './interface';
     // { provide: NZ_I18N, useValue: zh_CN },
 
   ],
-  exports: [SuperFormComponent, FormComponent]
+  exports: [SuperFormComponent]
 })
 export class SuperFormModule implements OnChanges, OnInit {
 

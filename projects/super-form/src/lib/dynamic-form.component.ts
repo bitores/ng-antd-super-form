@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, OnChanges, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 // import 'rxjs/add/operator/take';
 import { FieldConfig } from './interface';
@@ -7,25 +7,14 @@ import { CheckboxValuePosterService } from './service/checkbox-value-poster.serv
 
 
 @Component({
-  selector: 'antd-form',
+  selector: 'dynamic-form',
   template: `
-  <form (ngSubmit)="handleSubmit($event)" [formGroup]="form" class="dynamic-form">
-    <ng-container *ngFor="let config of configs" appDynamicField [config]="config" [group]="form"></ng-container>
+  <form nz-form (ngSubmit)="handleSubmit($event)" [formGroup]="form" [nzLayout]="layout" class="dynamic-form">
+    <ng-container *ngFor="let config of configs" appDynamicField [config]="config" [group]="form" [formLayout]="formLayout"></ng-container>
   </form>
   `,
   styles: [
     `
-    .dynamic-field {
-      margin-bottom: 15px;
-      label {
-        display: block;
-        font-size: 16px;
-        font-weight: 400;
-        letter-spacing: 0px;
-        margin-bottom: 10px;
-        color: rgba(219, 150, 150, 0.9);
-      }
-    }
     `
   ]
 })
@@ -34,30 +23,67 @@ import { CheckboxValuePosterService } from './service/checkbox-value-poster.serv
 export class FormComponent implements OnInit, OnChanges {
   @Input()
   configs: FieldConfig[];
+  @Input()
+  layout: string = 'horizontal';
+  @Input()
+  formLayout: object = {
+    labelCol: 6,
+    wrapperCol: 14
+  };
   @Output()
   submit = new EventEmitter<any>();
   get controlConfigs() { return this.configs.filter(item => item.type !== 'button'); }
   get value() { return this.form.value; }
   get valid() { return this.form.valid; }
-  // get changes(): Observable<any> { return this.form.valueChanges; }
+  get changes(): Observable<any> { return this.form.valueChanges; }
   form: FormGroup;
 
 
-  constructor(
-    private fb: FormBuilder, private service: CheckboxValuePosterService
-  ) {
+
+  constructor(private fb: FormBuilder, private service: CheckboxValuePosterService) {
+    console.log('4', this.layout, this.layout === 'horizontal')
+    this.changFormLayout()
+  }
+
+  changFormLayout() {
+    this.layout = this.layout === undefined ? 'horizontal' : this.layout;
+
+    if (this.formLayout !== undefined) {
+
+    } else if (this.layout === 'horizontal') {
+      this.formLayout = {
+        labelCol: {
+          span: 6
+        },
+        wrapperCol: {
+          span: 14
+        }
+      }
+    } else {
+      console.log('5...', this.layout)
+      this.formLayout = {
+        labelCol: null,
+        wrapperCol: null
+      }
+    }
   }
 
   ngOnInit() {
-    this.form = this.creatForm();
 
+    this.configs.map(item => {
+      if (item.validations && item.validations.indexOf(Validators.required) > -1) {
+        item.required = true;
+      }
+    })
+    console.log(this.configs)
+
+    this.form = this.creatForm();
   }
   ngOnChanges() {
-    console.log(1);
     if (this.form) {
       this.service.clearValue();
       const settedControls = Object.keys(this.form['controls']);
-      const controlToSet = this.controlConfigs.map(item => item.name);
+      const controlToSet = this.controlConfigs.map(item => item.key);
       settedControls
         .filter(controlName => !controlToSet.includes(controlName))
         .forEach(controlName => {
@@ -66,21 +92,28 @@ export class FormComponent implements OnInit, OnChanges {
       controlToSet
         .filter(controlName => !settedControls.includes(controlName))
         .forEach(controlName => {
-          const config = this.controlConfigs.find(item => item.name === controlName);
+          const config = this.controlConfigs.find(item => item.key === controlName);
           this.form.addControl(controlName, this.creatControl(config));
         });
     }
 
+    this.changFormLayout()
   }
   creatForm(): FormGroup {
     const form = this.fb.group({});
-    this.controlConfigs.forEach(config => {
-      form.addControl(config.name, this.creatControl(config));
+    this.controlConfigs.forEach(item => {
+      form.addControl(item.key, this.creatControl(item));
     });
     return form;
   }
   creatControl(fieldConfig: FieldConfig) {
     const { disabled, value, validations } = fieldConfig;
+    let r = Validators.required;
+    // console.log(validations, r)
+    // debugger
+    if (validations.indexOf(Validators.required) > -1) {
+      fieldConfig.required = true;
+    }
     return this.fb.control({ disabled, value }, validations);
   }
   handleSubmit(event: Event) {
@@ -100,7 +133,7 @@ export class FormComponent implements OnInit, OnChanges {
       return;
     }
     this.configs.forEach(item => {
-      if (item.name === name) {
+      if (item.key === name) {
         item.disabled = disable;
       }
     });

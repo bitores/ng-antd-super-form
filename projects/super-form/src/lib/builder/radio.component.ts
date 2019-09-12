@@ -5,9 +5,9 @@ import { FieldConfig } from '../interface';
   selector: 'app-form-radio',
   encapsulation: ViewEncapsulation.None,
   template: `
-  <nz-form-item [formGroup]="group">
+  <nz-form-item [formGroup]="group"  *ngIf="config.visible!==false">
     <nz-form-control [nzSpan]="14" [nzOffset]="6">
-      <label nz-radio [formControlName]="config.name" *ngFor="let item of config.options; let i = index" [nzValue]="item">
+      <label nz-radio [formControlName]="config.key" *ngFor="let item of config.options; let i = index" [nzValue]="item">
         <span>{{item}}</span>
       </label>
     </nz-form-control>
@@ -21,6 +21,7 @@ import { FieldConfig } from '../interface';
 export class FormRadioComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
+  formLayout: object;
   constructor() { }
 
   ngOnInit() {

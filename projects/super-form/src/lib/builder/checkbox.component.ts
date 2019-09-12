@@ -6,9 +6,9 @@ import { CheckboxValuePosterService } from '../service/checkbox-value-poster.ser
 @Component({
   selector: 'app-form-checkbox',
   template: `
-  <nz-form-item [formGroup]="group">
+  <nz-form-item [formGroup]="group"  *ngIf="config.visible!==false">
     <nz-form-control [nzSpan]="14" [nzOffset]="6">
-      <label nz-checkbox [formControlName]="config.name" *ngFor="let item of config.options; let i = index" [nzValue]="item">
+      <label nz-checkbox [formControlName]="config.key" *ngFor="let item of config.options; let i = index" [nzValue]="item" >
         <span>{{item}}</span>
       </label>
     </nz-form-control>
@@ -22,6 +22,8 @@ import { CheckboxValuePosterService } from '../service/checkbox-value-poster.ser
 export class FormCheckboxComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
+  formLayout: object;
+
   checkboxVal = [];
   checkboxValObj = {};
   constructor(
@@ -43,7 +45,7 @@ export class FormCheckboxComponent implements OnInit {
         });
       }
     }
-    this.checkboxValObj[this.config.name] = this.checkboxVal;
+    this.checkboxValObj[this.config.key] = this.checkboxVal;
     this.service.postValue(this.checkboxValObj);
 
 
