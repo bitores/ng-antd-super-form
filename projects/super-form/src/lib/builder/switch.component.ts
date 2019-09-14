@@ -2,17 +2,13 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FieldConfig } from '../interface';
 @Component({
-  selector: 'app-form-radio',
+  selector: 'app-form-switch',
   encapsulation: ViewEncapsulation.None,
   template: `
   <nz-form-item [formGroup]="group"  *ngIf="config.visible!==false">
     <nz-form-label [nzSm]="formLayout.labelCol" [nzRequired]="config.required" [nzNoColon]="config.noColon">{{config.label}}</nz-form-label>
     <nz-form-control [nzSm]="formLayout.wrapperCol">
-      <nz-radio-group [formControlName]="config.key" [nzSize]="config.size" [nzDisabled]="config.disabled" (ngModelChange)="onChange($event)">
-        <label nz-radio  *ngFor="let item of config.options; let i = index" [nzValue]="item.value" [nzDisabled]="item.disabled">
-          <span>{{item.label}}</span>
-        </label>
-      </nz-radio-group>
+      <nz-switch [formControlName]="config.key" [nzCheckedChildren]="config.checkedChildren" [nzUnCheckedChildren]="config.unCheckedChildren" [nzSize]="config.size" [nzLoading]="config.loading" (ngModelChange)="onChange($event)"></nz-switch>
       <div nz-form-explain>{{config.explain}}</div>
     </nz-form-control>
   </nz-form-item>
@@ -22,7 +18,7 @@ import { FieldConfig } from '../interface';
     `
   ]
 })
-export class FormRadioComponent implements OnInit {
+export class FormSwitchComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
   formLayout: object;
@@ -33,6 +29,7 @@ export class FormRadioComponent implements OnInit {
       ...this.formLayout,
       ...this.config.formLayout
     }
+
     let config = this.config;
     this.config = {
       noColon: false,

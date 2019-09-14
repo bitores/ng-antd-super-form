@@ -6,7 +6,7 @@ enum BUTTONTYPE { default = 'default', primary = 'primary', dashed = 'dashed', d
 export interface FieldConfig {
   key: string;
   validations?: ValidatorFn[];
-  value?: any;
+  initialValue?: any;
   disabled?: boolean;
   required?: boolean;
   placeholder?: string;

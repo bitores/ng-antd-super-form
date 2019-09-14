@@ -5,8 +5,11 @@ import { FieldConfig } from '../interface';
   selector: 'app-form-button',
   template: `
   <nz-form-item  *ngIf="config.visible!==false">
-    <nz-form-control [nzSm]="formLayout.wrapperCol">
-      <button nz-button [nzType]="config.buttonType" [nzGhost]="config.ghost" [nzShape]="config.shape" [nzSize]="config.size" [nzLoading]="config.loading" [nzBlock]="config.block" [disabled]="config.disabled"><i nz-icon [nzType]="config.icon" *ngIf="config.icon!=undefined"></i>{{config.label}}</button>
+    <nz-form-control [nzSm]="formLayout.wrapperCol" [ngSwitch]="config.type">
+      <button *ngSwitchCase="'button'" nz-button (click)="onClick($event)" [nzType]="config.nzType" [nzGhost]="config.ghost" [nzShape]="config.shape" [nzSize]="config.size" [nzLoading]="config.loading" [nzBlock]="config.block" [disabled]="config.disabled"><i nz-icon [nzType]="config.icon" *ngIf="config.icon!=undefined"></i>{{config.label}}<i nz-icon [nzType]="config.rightIcon" *ngIf="config.rightIcon!=undefined"></i></button>
+      <nz-button-group *ngSwitchCase="'buttongroup'">
+        <button *ngFor="let child of config.children" nz-button (click)="onClick($event)" [nzType]="child.nzType" [nzGhost]="child.ghost" [nzShape]="child.shape" [nzSize]="child.size" [nzLoading]="child.loading" [nzBlock]="child.block" [disabled]="child.disabled"><i nz-icon [nzType]="child.icon" *ngIf="child.icon!=undefined"></i>{{child.label}}<i nz-icon [nzType]="child.rightIcon" *ngIf="child.rightIcon!=undefined"></i></button>
+      </nz-button-group>
     </nz-form-control>
   </nz-form-item>
   `,
@@ -29,6 +32,37 @@ export class FormButtonComponent implements OnInit {
       ...this.formLayout,
       ...this.config.formLayout
     }
+
+    let config = this.config;
+
+    this.config = {
+      bindSearch: false,
+      ...config,
+    }
+
+    // switch (this.config.type) {
+    //   case "value":
+
+    //     break;
+
+    //   default:
+    //     break;
+    // }
+  }
+
+  onClick(e) {
+    let callback = this.config.onClick;
+    if (this.config.bindSearch) {
+      console.log(this.group)
+      for (const i in this.group.controls) {
+        this.group.controls[i].markAsDirty();
+        this.group.controls[i].updateValueAndValidity();
+      }
+
+    } else {
+      callback && callback(e, this.group)
+    }
+
   }
 
 }

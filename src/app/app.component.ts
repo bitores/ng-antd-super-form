@@ -16,11 +16,11 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('dynamicForm', { static: false })
   dynamicForm: FormComponent;
 
-  layout = 'horizontal';
-  formLayout = {
-    labelCol: 6,
-    wrapperCol: 14
-  }
+  // layout = 'inline';
+  // formLayout = {
+  //   labelCol: 6,
+  //   wrapperCol: 14
+  // }
   formFieldConfigs = formsPool['data'];
 
   constructor(private cdr: ChangeDetectorRef) { }

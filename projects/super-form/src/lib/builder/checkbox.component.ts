@@ -6,11 +6,11 @@ import { CheckboxValuePosterService } from '../service/checkbox-value-poster.ser
 @Component({
   selector: 'app-form-checkbox',
   template: `
-  <nz-form-item [formGroup]="group"  *ngIf="config.visible!==false">
-    <nz-form-control [nzSpan]="14" [nzOffset]="6">
-      <label nz-checkbox [formControlName]="config.key" *ngFor="let item of config.options; let i = index" [nzValue]="item" >
-        <span>{{item}}</span>
-      </label>
+  <nz-form-item [formGroup]="group" *ngIf="config.visible!==false">
+    <nz-form-label [nzSm]="formLayout.labelCol" [nzRequired]="config.required" [nzNoColon]="config.noColon">{{config.label}}</nz-form-label>
+    <nz-form-control [nzSm]="formLayout.wrapperCol">
+      <nz-checkbox-group  [formControlName]="config.key" (ngModelChange)="onChange($event)"></nz-checkbox-group>
+      <div nz-form-explain>{{config.explain}}</div>
     </nz-form-control>
   </nz-form-item>
   `,
@@ -27,28 +27,28 @@ export class FormCheckboxComponent implements OnInit {
   checkboxVal = [];
   checkboxValObj = {};
   constructor(
-    private service: CheckboxValuePosterService
+    // private service: CheckboxValuePosterService
   ) { }
 
   ngOnInit() {
-  }
-  pushValue(check, item) {
-    const haveItem = this.checkboxVal.includes(item);
-    if (check) {
-      if (!haveItem) {
-        this.checkboxVal.push(item);
-      }
-    } else {
-      if (haveItem) {
-        this.checkboxVal = this.checkboxVal.filter((ele) => {
-          return ele !== item;
-        });
-      }
+    this.formLayout = {
+      ...this.formLayout,
+      ...this.config.formLayout
     }
-    this.checkboxValObj[this.config.key] = this.checkboxVal;
-    this.service.postValue(this.checkboxValObj);
+    let config = this.config;
+    this.config = {
+      noColon: false,
+      ...config
+    }
 
 
+
+
+    this.group.get(`${this.config.key}`).setValue(this.config.options)
   }
 
+  onChange(v) {
+    let callback = this.config.onChange;
+    callback && callback(v);
+  }
 }

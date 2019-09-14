@@ -11,12 +11,10 @@ import { Component } from '@angular/core';
       </thead>
       <tbody>
         <tr *ngFor="let row of basicTable.data">
-          <td  *ngFor="let t of columns">{{ row[t.dataIndex] }}</td>
+          <td  *ngFor="let t of columns" [innerHTML]="(t.render?t.render(row[t.dataIndex], row):row[t.dataIndex])|html"></td>
                     
           <td>
-            <a>Action 一 {{ row.name }}</a>
-            <nz-divider nzType="vertical"></nz-divider>
-            <a>Delete</a>
+            <button (click)="al($event)">Test</button> 
           </td>
         </tr>
       </tbody>
@@ -24,6 +22,9 @@ import { Component } from '@angular/core';
   `
 })
 export class DynamicTableComponent {
+  al() {
+    console.log('!!')
+  }
   columns = [
     {
       title: 'Name',
@@ -32,6 +33,10 @@ export class DynamicTableComponent {
     {
       title: 'Age',
       dataIndex: 'age',
+      render: (v, record) => {
+        console.log(v)
+        return `${v}`;
+      }
     },
     {
       title: 'Address',
@@ -40,7 +45,11 @@ export class DynamicTableComponent {
     {
       title: 'Action',
       dataIndex: 'action',
-      render: () => { }
+      render: () => {
+        return `
+        <button nz-button (click)="${this.al}">Test</button>
+        `
+      }
     },
   ]
   listOfData = [

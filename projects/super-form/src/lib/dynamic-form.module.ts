@@ -8,7 +8,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 // import * as ff from '@ant-design/icons-angular/icons';
 
 
-import { FormButtonComponent, FormSelectComponent, FormRadioComponent, FormInputComponent, FormCheckboxComponent } from './builder/index';
+import { FormButtonComponent, FormSelectComponent, FormRadioComponent, FormInputComponent, FormCheckboxComponent, FormSwitchComponent, FormDatePickerComponent, FormCommonComponent, FormUploadComponent } from './builder/index';
 import { CheckboxValuePosterService } from './service/checkbox-value-poster.service';
 //
 import { DynamicFieldDirective } from './directives/dynamic-field.directive';
@@ -30,6 +30,12 @@ import { FormComponent } from './dynamic-form.component';
     FormButtonComponent,
     FormRadioComponent,
     FormCheckboxComponent,
+    FormSwitchComponent,
+    FormDatePickerComponent,
+    FormCommonComponent,
+    FormUploadComponent,
+
+
     FormComponent,
     DynamicFieldDirective,
   ],
@@ -41,7 +47,11 @@ import { FormComponent } from './dynamic-form.component';
     FormSelectComponent,
     FormButtonComponent,
     FormCheckboxComponent,
-    FormRadioComponent
+    FormRadioComponent,
+    FormSwitchComponent,
+    FormDatePickerComponent,
+    FormCommonComponent,
+    FormUploadComponent,
   ],
   providers: [
     // { provide: NZ_ICONS, useValue: icons },

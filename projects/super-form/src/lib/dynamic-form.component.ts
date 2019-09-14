@@ -38,37 +38,23 @@ export class FormComponent implements OnInit, OnChanges {
   get changes(): Observable<any> { return this.form.valueChanges; }
   form: FormGroup;
 
-
-
   constructor(private fb: FormBuilder, private service: CheckboxValuePosterService) {
-    console.log('4', this.layout, this.layout === 'horizontal')
-    this.changFormLayout()
-  }
-
-  changFormLayout() {
-    this.layout = this.layout === undefined ? 'horizontal' : this.layout;
-
-    if (this.formLayout !== undefined) {
-
-    } else if (this.layout === 'horizontal') {
-      this.formLayout = {
-        labelCol: {
-          span: 6
-        },
-        wrapperCol: {
-          span: 14
-        }
-      }
-    } else {
-      console.log('5...', this.layout)
-      this.formLayout = {
-        labelCol: null,
-        wrapperCol: null
-      }
-    }
   }
 
   ngOnInit() {
+
+    this.layout = ['inline', 'horizontal', 'vertical'].indexOf(this.layout) > -1 ? this.layout : 'horizontal';
+    this.formLayout = this.formLayout || (this.layout === 'horizontal' ? {
+      labelCol: {
+        span: 6
+      },
+      wrapperCol: {
+        span: 14
+      }
+    } : {
+        labelCol: null,
+        wrapperCol: null
+      });
 
     this.configs.map(item => {
       if (item.validations && item.validations.indexOf(Validators.required) > -1) {
@@ -97,7 +83,6 @@ export class FormComponent implements OnInit, OnChanges {
         });
     }
 
-    this.changFormLayout()
   }
   creatForm(): FormGroup {
     const form = this.fb.group({});
@@ -107,14 +92,15 @@ export class FormComponent implements OnInit, OnChanges {
     return form;
   }
   creatControl(fieldConfig: FieldConfig) {
-    const { disabled, value, validations } = fieldConfig;
+    const { type, disabled, initialValue = null, validations } = fieldConfig;
     let r = Validators.required;
     // console.log(validations, r)
     // debugger
-    if (validations.indexOf(Validators.required) > -1) {
+    if (validations && validations.indexOf(Validators.required) > -1) {
       fieldConfig.required = true;
     }
-    return this.fb.control({ disabled, value }, validations);
+
+    return this.fb.control({ disabled, value: initialValue }, validations);
   }
   handleSubmit(event: Event) {
     event.preventDefault();

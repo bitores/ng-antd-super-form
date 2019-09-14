@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import zh from '@angular/common/locales/zh';
 import { registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
+import { HttpClientModule } from '@angular/common/http';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
@@ -22,17 +24,32 @@ registerLocaleData(zh);
 //
 import { DynamicTableComponent } from 'projects/super-form/src/lib/dynamic-table.component';
 
+//
+import { Pipe, PipeTransform } from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
+@Pipe({
+  name: "html"
+})
+export class HtmlPipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {
+  }
+  transform(style) {
+    return this.sanitizer.bypassSecurityTrustHtml(style);
+  }
+}
 
 @NgModule({
   declarations: [
     AppComponent,
     //
-    DynamicTableComponent
+    DynamicTableComponent,
+    HtmlPipe
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
     /** 导入 ng-zorro-antd 模块 **/
     NgZorroAntdModule,
     //
