@@ -1,75 +1,75 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'dynamic-table',
   template: `
-    <nz-table #basicTable [nzData]="listOfData">
+    <nz-table #basicTable 
+      [nzData]="dataSource"
+      [nzScroll]="fixHeader ? { y: '240px' } : null"
+      [nzBordered]="bordered"
+      [nzSimple]="simple"
+      [nzLoading]="loading"
+      [nzPaginationPosition]="position"
+      [nzShowSizeChanger]="sizeChanger"
+      [nzFrontPagination]="pagination"
+      [nzShowPagination]="pagination"
+      [nzFooter]="footer ? 'Here is Footer' : null"
+      [nzTitle]="title ? 'Here is Title' : null"
+      [nzSize]="size"
+      >
       <thead>
         <tr>
-          <th *ngFor="let t of columns">{{t.title}}</th>
+          <th *ngFor="let t of columns" [nzWidth]="t.width">{{t.title}}</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let row of basicTable.data">
-          <td  *ngFor="let t of columns" [innerHTML]="(t.render?t.render(row[t.dataIndex], row):row[t.dataIndex])|html"></td>
-                    
-          <td>
-            <button (click)="al($event)">Test</button> 
-          </td>
+          <ng-container *ngFor="let t of columns" [ngSwitch]="t.dataIndex">
+            <td *ngSwitchCase="'action'" >
+              <ng-container *ngFor="let child of t.children; let i=index">
+                <a nz-popconfirm 
+                  [nzPopconfirmTitle]="child.popconfirmTitle||'确认操作?'" 
+                  nzIcon="question-circle-o"
+                  (nzOnConfirm)="child.click($event, row)"
+                  *ngIf="child.popconfirm;else noPopconfirm"
+              >{{child.title}}</a>
+              <ng-template #noPopconfirm>
+                <a (click)="child.click($event, row)">{{child.title}}</a>
+              </ng-template>
+                
+                <nz-divider nzType="vertical" *ngIf="t.children.length!==(i+1)"></nz-divider>
+              </ng-container>
+            </td>
+            <td *ngSwitchDefault>{{t.render?t.render(row[t.dataIndex], row):row[t.dataIndex]}}</td>  
+           </ng-container>
         </tr>
       </tbody>
     </nz-table>
   `
 })
-export class DynamicTableComponent {
-  al() {
-    console.log('!!')
+export class DynamicTableComponent implements OnInit {
+  @Input() columns: object[];
+  @Input() dataSource: object[];
+  bordered = false;
+  loading = false;
+  sizeChanger = false;
+  pagination = true;
+  header = false;
+  title = false;
+  footer = false;
+  fixHeader = false;
+  size = 'large';
+  expandable = true;
+  checkbox = true;
+  allChecked = false;
+  indeterminate = false;
+  displayData: any[] = [];
+  simple = false;
+  noResult = false;
+  position = 'bottom';
+
+  ngOnInit() {
+
   }
-  columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age',
-      render: (v, record) => {
-        console.log(v)
-        return `${v}`;
-      }
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-    },
-    {
-      title: 'Action',
-      dataIndex: 'action',
-      render: () => {
-        return `
-        <button nz-button (click)="${this.al}">Test</button>
-        `
-      }
-    },
-  ]
-  listOfData = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    }
-  ];
+
 }

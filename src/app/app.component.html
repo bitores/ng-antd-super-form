@@ -2,4 +2,4 @@
 <dynamic-form #dynamicForm [layout]="layout" [formLayout]="formLayout" [configs]="formFieldConfigs"
   (submit)="onSubmit($event)">
 </dynamic-form>
-<dynamic-table></dynamic-table>
+<dynamic-table [columns]="columns" [dataSource]="dataSource"></dynamic-table>

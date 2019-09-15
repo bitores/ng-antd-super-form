@@ -2,7 +2,6 @@ import { Directive, Input, ComponentRef, ComponentFactoryResolver, ViewContainer
 import { FormGroup } from '@angular/forms';
 
 import { FieldConfig, Field } from '../interface';
-import { CheckboxValuePosterService } from '../service/checkbox-value-poster.service'
 
 import { components } from '../builder/index';
 
@@ -21,7 +20,6 @@ export class DynamicFieldDirective implements OnChanges, OnInit {
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private viewcontainerRef: ViewContainerRef
-    , private service: CheckboxValuePosterService
   ) {
 
   }

@@ -7,7 +7,7 @@ import { FieldConfig } from '../interface';
   template: `
   <nz-form-item [formGroup]="group"  *ngIf="config.visible!==false">
     <nz-form-label [nzSm]="formLayout.labelCol" [nzRequired]="config.required" [nzNoColon]="config.noColon">{{config.label}}</nz-form-label>
-    <nz-form-control [nzSm]="formLayout.wrapperCol">
+    <nz-form-control [nzSm]="formLayout.wrapperCol" [nzHasFeedback]="config.hasFeedback" [nzSuccessTip]="config.successTip" [nzWarningTip]="config.warningTip" [nzErrorTip]="config.errorTip" [nzValidatingTip]="config.validatingTip">
       <nz-switch [formControlName]="config.key" [nzCheckedChildren]="config.checkedChildren" [nzUnCheckedChildren]="config.unCheckedChildren" [nzSize]="config.size" [nzLoading]="config.loading" (ngModelChange)="onChange($event)"></nz-switch>
       <div nz-form-explain>{{config.explain}}</div>
     </nz-form-control>

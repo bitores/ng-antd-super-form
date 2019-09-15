@@ -1,4 +1,4 @@
-import { Validators } from '@angular/forms';
+import { Validators, ValidatorFn } from '@angular/forms';
 import { FieldConfig } from 'projects/super-form/src/lib/interface';
 
 export const formsPool: { [formType: string]: FieldConfig[] } = {
@@ -55,10 +55,22 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       // nzType: 'horizontal',
       // orientation: "left"
     },
+    // {
+    //   label: '',
+    //   key: '-',
+    //   type: 'text',
+    //   explain: 'xxxx',
+    //   formLayout: {
+    //     wrapperCol: {
+    //       span: 14,
+    //       offset: 6
+    //     }
+    //   },
+    // },
     {
       validations: [Validators.required],
-      errorTip: '要上传',
-      label: '上传',
+      errorTip: '请上传',
+      label: '图片上传',
       key: 'img',
       type: 'upload',
       // nzType: 'drag',
@@ -106,11 +118,13 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       ],
     },
     {
+      validations: [Validators.required],
       label: '时间',
       key: 'time',
       type: 'rangepicker',
       showTime: true,
       format: 'yyyy-MM-dd HH:mm:ss',
+      errorTip: '请选择',
       onChange: (date) => {
         console.log('=', date)
       },
@@ -119,8 +133,16 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       type: 'select',
       label: '喜欢的食物种类',
       key: 'foodType',
-      initialValue: '2',
+      // initialValue: '2',
       // disabled: true,
+      // mode: 'tags',
+      // maxTagCount: 2,
+      // showSearch: true,
+      // dropdownRender: true,
+      errorTip: '请选择',
+      onClick() {
+        console.log('==')
+      },
       options: [
         {
           label: '西式快餐',
@@ -147,8 +169,8 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       type: 'radio',
       key: 'sex',
       validations: [Validators.required],
-      errorTip: 'xxx',
-      initialValue: 1,
+      errorTip: '请选择',
+      // initialValue: 1,
       disabled: false,
       options: [
         {
@@ -167,9 +189,22 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       label: '喜好',
       type: 'checkbox',
       key: 'fav',
-      validations: [Validators.required],
+      validations: [Validators.required, (control) => {
+        if (control.value) {
+          let ret = control.value.filter(item => item.checked)
+          if (ret.length < 1) {
+            return {
+              valid: false
+            }
+          }
+          return null;
+        }
+
+        return null;
+      }],
       errorTip: 'xxx',
-      initialValue: [1],
+      // initialValue: [1],
+      explain: '至少选择一个选择',
       disabled: false,
       options: [
         {
@@ -186,10 +221,10 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       type: 'switch',
       key: 'isT',
       validations: [Validators.required],
-      errorTip: 'xxx',
+      errorTip: '请选择',
       checkedChildren: '开',
       unCheckedChildren: '关',
-      initialValue: true,
+      // initialValue: false,
       onChange(v) {
         console.log(v)
       }

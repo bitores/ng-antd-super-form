@@ -30,6 +30,7 @@ export const components: { [type: string]: Type<Field> } = {
   weekpicker: FormDatePickerComponent,
   rangepicker: FormDatePickerComponent,
   divider: FormCommonComponent,
+  text: FormCommonComponent,
   br: FormCommonComponent,
   upload: FormUploadComponent,
 };

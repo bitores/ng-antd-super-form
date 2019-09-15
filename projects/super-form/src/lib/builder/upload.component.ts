@@ -10,7 +10,7 @@ import { UploadFile, UploadFilter } from 'ng-zorro-antd/upload';
   template: `
   <nz-form-item [formGroup]="group"  *ngIf="config.visible!==false">
     <nz-form-label [nzSm]="formLayout.labelCol" [nzRequired]="config.required" [nzNoColon]="config.noColon">{{config.label}}</nz-form-label>
-    <nz-form-control [nzSm]="formLayout.wrapperCol">
+    <nz-form-control [nzSm]="formLayout.wrapperCol" [nzHasFeedback]="config.hasFeedback" [nzSuccessTip]="config.successTip" [nzWarningTip]="config.warningTip" [nzErrorTip]="config.errorTip" [nzValidatingTip]="config.validatingTip">
       <nz-upload ngDefaultControl
         [formControlName]="config.key"
         [nzType]="config.nzType"

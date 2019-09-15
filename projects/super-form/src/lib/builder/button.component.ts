@@ -22,12 +22,8 @@ export class FormButtonComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
   formLayout: object;
-  constructor() {
-    console.log('constr')
-  }
 
   ngOnInit() {
-    console.log('init...')
     this.formLayout = {
       ...this.formLayout,
       ...this.config.formLayout
@@ -39,15 +35,6 @@ export class FormButtonComponent implements OnInit {
       bindSearch: false,
       ...config,
     }
-
-    // switch (this.config.type) {
-    //   case "value":
-
-    //     break;
-
-    //   default:
-    //     break;
-    // }
   }
 
   onClick(e) {

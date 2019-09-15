@@ -28,3 +28,8 @@ export interface Field {
   config: FieldConfig;
   formLayout: object;
 }
+
+export interface TableField {
+  columns: object[];
+  dataSource: object[];
+}

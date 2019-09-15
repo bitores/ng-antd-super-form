@@ -22,7 +22,7 @@ const icons: IconDefinition[] = Object.values(ff);
 registerLocaleData(zh);
 
 //
-import { DynamicTableComponent } from 'projects/super-form/src/lib/dynamic-table.component';
+import { DynamicTableModule } from 'projects/super-form/src/lib/dynamic-table.module';
 
 //
 import { Pipe, PipeTransform } from "@angular/core";
@@ -42,23 +42,21 @@ export class HtmlPipe implements PipeTransform {
   declarations: [
     AppComponent,
     //
-    DynamicTableComponent,
-    HtmlPipe
+    HtmlPipe,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     /** 导入 ng-zorro-antd 模块 **/
     NgZorroAntdModule,
     //
     SuperFormModule,
-    FormsModule,
-    ReactiveFormsModule,
     DynamicFormModule,
-
-
+    DynamicTableModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },

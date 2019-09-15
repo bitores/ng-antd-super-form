@@ -9,7 +9,6 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 
 
 import { FormButtonComponent, FormSelectComponent, FormRadioComponent, FormInputComponent, FormCheckboxComponent, FormSwitchComponent, FormDatePickerComponent, FormCommonComponent, FormUploadComponent } from './builder/index';
-import { CheckboxValuePosterService } from './service/checkbox-value-poster.service';
 //
 import { DynamicFieldDirective } from './directives/dynamic-field.directive';
 import { FormComponent } from './dynamic-form.component';
@@ -55,7 +54,6 @@ import { FormComponent } from './dynamic-form.component';
   ],
   providers: [
     // { provide: NZ_ICONS, useValue: icons },
-    CheckboxValuePosterService
   ]
 })
 export class DynamicFormModule { }
