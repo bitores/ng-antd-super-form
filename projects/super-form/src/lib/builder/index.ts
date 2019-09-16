@@ -9,7 +9,7 @@ import { FormSelectComponent } from './select.component';
 import { FormSwitchComponent } from './switch.component';
 import { FormDatePickerComponent } from './datepicker.component';
 import { FormCommonComponent } from './common.component';
-import { FormUploadComponent } from './upload.component';
+import { FormUploadComponent, UploadControlComponent } from './upload.component';
 import { FormSliderComponent } from './slider.component';
 import { FormRateComponent } from './rate.component';
 
@@ -50,6 +50,7 @@ export {
   FormDatePickerComponent,
   FormCommonComponent,
   FormUploadComponent,
+  UploadControlComponent,
   FormSliderComponent,
   FormRateComponent,
 }

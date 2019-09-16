@@ -8,7 +8,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 // import * as ff from '@ant-design/icons-angular/icons';
 
 
-import { FormButtonComponent, FormSelectComponent, FormRadioComponent, FormInputComponent, FormCheckboxComponent, FormSwitchComponent, FormDatePickerComponent, FormCommonComponent, FormUploadComponent, FormSliderComponent, FormRateComponent } from './builder/index';
+import { FormButtonComponent, FormSelectComponent, FormRadioComponent, FormInputComponent, FormCheckboxComponent, FormSwitchComponent, FormDatePickerComponent, FormCommonComponent, FormUploadComponent, UploadControlComponent, FormSliderComponent, FormRateComponent } from './builder/index';
 //
 import { DynamicFieldDirective } from './directives/dynamic-field.directive';
 import { FormComponent } from './dynamic-form.component';
@@ -35,6 +35,7 @@ import { RatingInputComponent } from './builder/rating-input.component';
     FormDatePickerComponent,
     FormCommonComponent,
     FormUploadComponent,
+    UploadControlComponent,
     FormSliderComponent,
     FormRateComponent,
     RatingInputComponent,
@@ -57,6 +58,7 @@ import { RatingInputComponent } from './builder/rating-input.component';
     FormDatePickerComponent,
     FormCommonComponent,
     FormUploadComponent,
+    UploadControlComponent,
     FormSliderComponent,
     FormRateComponent,
     RatingInputComponent,

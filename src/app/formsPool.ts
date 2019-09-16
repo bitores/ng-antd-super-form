@@ -93,7 +93,8 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       action: "https://jsonplaceholder.typicode.com/posts/",
       listType: 'picture-card',
       showButton: true,
-      fileList: [
+      disabled: true,
+      initialValue: [
         {
           uid: -1,
           name: 'xxx.png',
@@ -102,17 +103,17 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
         }
       ],
       filter: [
-        // {
-        //   name: 'type',
-        //   fn: (fileList) => {
-        //     const filterFiles = fileList.filter(w => ~['image/png'].indexOf(w.type));
-        //     if (filterFiles.length !== fileList.length) {
-        //       console.error(`包含文件格式不正确，只支持 png 格式`);
-        //       return filterFiles;
-        //     }
-        //     return fileList;
-        //   }
-        // },
+        {
+          name: 'type',
+          fn: (fileList) => {
+            const filterFiles = fileList.filter(w => ~['image/png'].indexOf(w.type));
+            if (filterFiles.length !== fileList.length) {
+              console.error(`包含文件格式不正确，只支持 png 格式`);
+              return filterFiles;
+            }
+            return fileList;
+          }
+        },
         // {
         //   name: 'async',
         //   fn: (fileList) => {
