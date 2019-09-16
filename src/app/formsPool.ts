@@ -3,7 +3,6 @@ import { FieldConfig } from 'projects/super-form/src/lib/interface';
 
 export const formsPool: { [formType: string]: FieldConfig[] } = {
   data: [
-
     {
       type: 'input',
       // nzType: 'hidden',
@@ -78,7 +77,17 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       errorTip: '请选择',
     },
     {
-      validations: [Validators.required],
+      validations: [Validators.required, (control) => {
+        if (control.value) {
+          if (control.value.length <= 1) {
+            return {
+              valid: false
+            }
+          }
+        }
+
+        return null;
+      }],
       errorTip: '请上传',
       label: '图片上传',
       key: 'img',
@@ -92,8 +101,10 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       accept: 'file',
       action: "https://jsonplaceholder.typicode.com/posts/",
       listType: 'picture-card',
-      showButton: true,
-      disabled: true,
+      // showButton: true,
+      // disabled: true,
+      maxCount: 3,
+      explain: '至少上传1张, 最多上传3张图片',
       initialValue: [
         {
           uid: -1,
@@ -326,8 +337,8 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       },
       icon: 'cloud',
       bindSearch: true,
-      onClick: (e) => {
-        console.log(e)
+      onClick: (e, form) => {
+        console.log(e, form)
       }
     }
   ]

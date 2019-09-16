@@ -31,7 +31,9 @@ export class FormComponent implements OnInit, OnChanges {
   };
   @Output()
   submit = new EventEmitter<any>();
-  get controlConfigs() { return this.configs.filter(item => !['button', 'buttongroup', 'br', 'divider'].includes(item.type)); }
+  get controlConfigs() {
+    return this.configs.filter(item => !['button', 'buttongroup', 'br', 'divider', 'explain'].includes(item.type));
+  }
   get value() { return this.form.value; }
   get valid() { return this.form.valid; }
   get changes(): Observable<any> { return this.form.valueChanges; }

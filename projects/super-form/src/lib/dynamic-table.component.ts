@@ -1,27 +1,35 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+const DEFAULT_PAGE_SIZE = 5;
+
 @Component({
   selector: 'dynamic-table',
   template: `
     <nz-table #basicTable 
-      [nzData]="dataSource"
-      [nzScroll]="fixHeader ? { y: '240px' } : null"
-      [nzBordered]="bordered"
-      [nzSimple]="simple"
-      [nzLoading]="loading"
-      [nzPaginationPosition]="position"
-      [nzShowSizeChanger]="sizeChanger"
-      [nzFrontPagination]="pagination"
-      [nzShowPagination]="pagination"
-      [nzTotal]="total"
-      [(nzPageIndex)]="pageIndex"
-      [(nzPageSize)]="pageSize"
-      (nzPageIndexChange)="searchData()"
-      (nzPageSizeChange)="searchData(true)"
-      [nzFooter]="footer ? 'Here is Footer' : null"
-      [nzTitle]="title ? 'Here is Title' : null"
-      [nzSize]="size"
-      >
+      [nzScroll]="config.fixHeader ? { y: '240px' } : null"
+      [nzBordered]="config.bordered"
+      [nzSimple]="config.simple"
+      
+      [nzFooter]="config.footer ? config.footer : null"
+      [nzTitle]="config.title ? config.title : null"
+      [nzSize]="config.size"
+
+      [nzShowPagination]="config.showPagination"
+      [nzPaginationPosition]="config.paginationPosition"
+      [nzShowSizeChanger]="config.showSizeChanger"
+      [nzFrontPagination]="config.frontPagination"
+      [nzPageSizeOptions]="config.pageSizeOptions"
+      [nzShowQuickJumper]="config.showQuickJumper"
+      [nzShowTotal]="config.showTotal?showTotal:null"
+      
+      [nzTotal]="_total"
+      [nzData]="_list"
+      [nzPageIndex]="_current"
+      [nzPageSize]="_pageSize"
+      [nzLoading]="config.loading&&_loading"
+      (nzPageIndexChange)="handleEvent($event, _pageIndexChange)"
+      (nzPageSizeChange)="handleEvent($event, _pageSizeChange)"
+    >
       <thead>
         <tr>
           <th *ngFor="let t of columns" [nzWidth]="t.width" [nzSort]="t.sort||null" [nzSortKey]="t.sortKey" [nzShowSort]="t.showSort">{{t.title}}</th>
@@ -50,36 +58,153 @@ import { Component, Input, OnInit } from '@angular/core';
         </tr>
       </tbody>
     </nz-table>
+    <ng-template #showTotal let-range="range" let-total>
+      {{ range[0] }}-{{ range[1] }} 条, 共 {{ total }} 条
+    </ng-template>
   `
 })
 export class DynamicTableComponent implements OnInit {
+  @Input() action: Function;
+  @Input() params: Function;
+  @Input() extraParams: () => object | object;
+  @Input() pageName: string;
+  @Input() pageSizeName: string;
+  @Input() valueMap: Function;
+  @Input() actionError: Function;
+  @Input() isInit: boolean;
+
   @Input() columns: object[];
   @Input() dataSource: object[];
-  bordered = false;
-  loading = false;
-  sizeChanger = false;
-  pagination = true;
-  pageIndex = 1;
-  pageSize = 1;
-  header = false;
-  title = false;
-  footer = false;
-  fixHeader = false;
-  size = 'large';
-  expandable = true;
-  checkbox = true;
-  allChecked = false;
-  indeterminate = false;
-  displayData: any[] = [];
-  simple = false;
-  noResult = false;
-  position = 'bottom';
+  @Input() config: object;
 
-  ngOnInit() {
+  //
+  _loading: boolean = false;
+  _list: object[] = [];
+  _total: number = 0;
+  _current: number = 1;
+  _pageSize: number = DEFAULT_PAGE_SIZE;
+  //
+
+
+  _init(config, isInit = false) {
+    const { current = 1, pageSize = DEFAULT_PAGE_SIZE, dataSource, total = 0 } = config;
+
+    this._list = dataSource;
+    this._total = total;
+    this._current = current;
+    this._pageSize = pageSize;
+
+    // 初始化 是否要求加载数据
+    isInit && this._loadData();
+  }
+
+  reset(needLoad = true) {
+    this._init(this.config, needLoad)
+  }
+
+  // 刷新 当前状态下进行数据加载
+  refresh() {
+    this._loadData();
+  }
+
+  // 换页 改变状态下进行数据加载
+  _pageIndexChange = (_current = 1) => {
+    this._current = _current;
+    this._loadData();
+  }
+
+  // 换页 改变状态下进行数据加载
+  _pageSizeChange = (_pageSize = DEFAULT_PAGE_SIZE) => {
+    this._pageSize = _pageSize;
+    this._loadData();
+  }
+
+  _loadData() {
+    const {
+      action,
+      pageName = "page",
+      pageSizeName = "pageSize",
+      valueMap = (res) => {
+        return {
+          status: res.status,
+          dataSource: res.entry,
+          total: res.totalRecordSize
+        }
+      },
+      actionError = (msg) => console.error(msg),
+      params = () => ({}),
+      extraParams = () => ({}),
+      _current,
+      _pageSize
+    } = this;
+
+    let _val = toString.call(extraParams) === "[object Function]" ? extraParams() : extraParams;
+
+    let values = {
+      // 获取外部搜索参数
+      ..._val,
+      // 获取内部搜索参数,
+      ...params(),
+      [pageName]: _current,
+      [pageSizeName]: _pageSize
+    }
+
+    // return;
+    let request = null;
+    if (action) {
+      request = action(values);
+    } else {
+      throw new Error('need action filed')
+    }
+    this._loading = true;
+    request.then(res => {
+      const { dataSource, total, status } = valueMap(res);
+      if (status) {
+        this._list = dataSource;
+        this._total = total;
+      } else {
+        actionError(res.message)
+      }
+      this._loading = false;
+    })
 
   }
 
-  searchData() { }
+  ngOnInit() {
+
+    let config = this.config;
+    this.config = {
+      bordered: false,
+      loading: false,
+      header: false,
+      title: false,
+      footer: false,
+      fixHeader: false,
+      size: 'default',
+
+      expandable: true,
+      checkbox: true,
+      allChecked: false,
+      indeterminate: false,
+      simple: false,
+      noResult: false,
 
 
+      showPagination: true,
+      paginationPosition: 'bottom',
+      showSizeChanger: false,
+      frontPagination: false,
+      pageSizeOptions: [10, 20, 30, 40, 50],
+      showQuickJumper: false,
+      showTotal: null,
+
+      ...config
+    }
+
+    this._init(this.config, this.isInit)
+  }
+
+  handleEvent(e, callback) {
+    callback && callback(e)
+  }
 }

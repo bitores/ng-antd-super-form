@@ -24,25 +24,10 @@ registerLocaleData(zh);
 //
 import { DynamicTableModule } from 'projects/super-form/src/lib/dynamic-table.module';
 
-//
-import { Pipe, PipeTransform } from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser";
-@Pipe({
-  name: "html"
-})
-export class HtmlPipe implements PipeTransform {
-  constructor(private sanitizer: DomSanitizer) {
-  }
-  transform(style) {
-    return this.sanitizer.bypassSecurityTrustHtml(style);
-  }
-}
 
 @NgModule({
   declarations: [
     AppComponent,
-    //
-    HtmlPipe,
   ],
   imports: [
     BrowserModule,

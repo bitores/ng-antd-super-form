@@ -12,7 +12,6 @@ import { FormButtonComponent, FormSelectComponent, FormRadioComponent, FormInput
 //
 import { DynamicFieldDirective } from './directives/dynamic-field.directive';
 import { FormComponent } from './dynamic-form.component';
-import { UploadValueAccessor } from './directives/upload-control.directive';
 import { RatingInputComponent } from './builder/rating-input.component';
 
 // const icons: IconDefinition[] = Object.values(ff);
@@ -43,7 +42,6 @@ import { RatingInputComponent } from './builder/rating-input.component';
 
     FormComponent,
     DynamicFieldDirective,
-    UploadValueAccessor
   ],
   exports: [
     FormComponent,

@@ -40,12 +40,11 @@ export class FormButtonComponent implements OnInit {
   onClick(e) {
     let callback = this.config.onClick;
     if (this.config.bindSearch) {
-      console.log(this.group)
       for (const i in this.group.controls) {
         this.group.controls[i].markAsDirty();
         this.group.controls[i].updateValueAndValidity();
       }
-
+      callback && callback(e, this.group)
     } else {
       callback && callback(e, this.group)
     }

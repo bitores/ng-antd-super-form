@@ -28,10 +28,10 @@ import { UploadFile } from 'ng-zorro-antd/upload';
     [nzListType]="config.listType"
     [nzMultiple]="config.multiple"       
     [nzShowUploadList]="config.showUploadList"
-    [nzShowButton]="config.showButton"
+    [nzShowButton]="showButton"
     [nzOpenFileDialogOnClick]="config.openFileDialogOnClick"
     [nzPreview]="handlePreview"
-    (nzChange)="handleEvent($event, onChange)"
+    (nzChange)="handleEvent($event, changeFileList)"
     [ngSwitch]="config.theme"
   >
     <button nz-button *ngSwitchCase="'theme1'">
@@ -49,8 +49,9 @@ import { UploadFile } from 'ng-zorro-antd/upload';
       <p class="u-ant-upload-text">{{config.uploadTitle}}</p>
       <p class="u-ant-upload-hint">{{config.subTitle}}</p>
     </div>
+    <ng-template  *ngSwitchCase="'theme4'" #theme>
+    </ng-template>
   </nz-upload>
-  <div nz-form-explain>{{config.explain}}</div>
   <nz-modal
     [nzVisible]="previewVisible"
     [nzContent]="modalContent"
@@ -90,7 +91,23 @@ export class UploadControlComponent implements ControlValueAccessor {
   previewImage: string | undefined = '';
   previewVisible = false;
   //
+  showButton: boolean = true;
   fileList: object[] = [];
+
+  // Function to call when the rating changes.
+  onChange = (fileList: object[]) => {
+    console.log(this)
+  };
+
+  changeFileList = (fileList: object[]) => {
+    this.fileList = fileList;
+    if (this.fileList.length >= this.config.maxCount) {
+      this.showButton = false;
+    } else {
+      this.showButton = true;
+    }
+    this.onChange(this.value);
+  }
 
   // Function to call when the input is touched (when a star is clicked).
   onTouched = () => { };
@@ -102,14 +119,11 @@ export class UploadControlComponent implements ControlValueAccessor {
   // Allows Angular to update the model (rating).
   // Update the model and changes needed for the view here.
   writeValue(fileList: object[]): void {
+    console.log('write==')
     this.fileList = fileList || [];
     this.onChange(this.value)
   }
 
-  // Function to call when the rating changes.
-  onChange = (fileList: object[]) => {
-    this.fileList = fileList;
-  };
 
   // Allows Angular to register a function to call when the model (rating) changes.
   // Save the function as a property to call later here.
@@ -125,7 +139,7 @@ export class UploadControlComponent implements ControlValueAccessor {
 
   // Allows Angular to disable the input.
   setDisabledState(isDisabled: boolean): void {
-    // this.disabled = isDisabled;
+    this.disabled = isDisabled;
   }
 
   handlePreview = (file: UploadFile) => {
@@ -133,7 +147,8 @@ export class UploadControlComponent implements ControlValueAccessor {
     this.previewVisible = true;
   };
 
-  handleEvent(e, callback) {
+  handleEvent = (e, callback) => {
+    console.log(e)
     callback && callback(e.fileList)
   }
 }
@@ -193,6 +208,7 @@ export class FormUploadComponent implements OnInit {
       icon: "plus",
       uploadTitle: '上传',
       subTitle: '',
+      maxCount: Infinity,
       ...config
     }
   }
