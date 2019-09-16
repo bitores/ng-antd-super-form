@@ -14,6 +14,8 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       disabled: false,
       validations: [Validators.required],
       errorTip: '请输入你喜欢的食物',
+      // extra: 'xxxx',
+      // explain: '---',
       hasFeedback: true,
       // maxlength: 10,
       // visible: false, Validators.minLength(4)
@@ -67,6 +69,14 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
     //     }
     //   },
     // },
+    {
+      validations: [Validators.required],
+      label: 'rating',
+      type: 'rating',
+      key: 'rating',
+      // initialValue: 3,
+      errorTip: '请选择',
+    },
     {
       validations: [Validators.required],
       errorTip: '请上传',
@@ -128,6 +138,45 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       onChange: (date) => {
         console.log('=', date)
       },
+    },
+    {
+      type: 'slider',
+      label: 'slider',
+      key: 'slider',
+      // range: true,
+      // step: 10,
+      // onModelChange(v) {
+      //   console.log(v)
+      // },
+      // onAfterChange: (v) => {
+      //   console.log(v)
+      // }
+      // min: 1,
+      // max: 20,
+      // step: 0.01,
+      // formatter(v) {
+      //   return `${v}%`
+      // }
+      initialValue: 37,
+      marks: {
+        0: '0°C',
+        26: '26°C',
+        37: '37°C',
+        100: {
+          style: {
+            color: '#f50'
+          },
+          label: '<strong>100°C</strong>'
+        }
+      }
+    },
+    {
+      label: 'Rate',
+      type: 'rate',
+      key: 'rate',
+      allowHalf: true,
+      initialValue: 2.5,
+      character: '好'
     },
     {
       type: 'select',
@@ -232,6 +281,7 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
     {
       type: 'buttongroup',
       key: 'group',
+      extra: 'xxxx',
       formLayout: {
         wrapperCol: {
           span: 14,
@@ -244,14 +294,20 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
           type: 'button',
           key: '1',
           nzType: 'primary',
-          icon: 'left'
+          icon: 'left',
+          onClick() {
+            console.log('...1')
+          }
         },
         {
           label: 'Go forward',
           type: 'button',
           key: '2',
           nzType: 'primary',
-          rightIcon: 'right'
+          rightIcon: 'right',
+          onClick() {
+            console.log('...2')
+          }
         },
       ]
     },

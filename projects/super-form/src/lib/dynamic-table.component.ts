@@ -13,13 +13,18 @@ import { Component, Input, OnInit } from '@angular/core';
       [nzShowSizeChanger]="sizeChanger"
       [nzFrontPagination]="pagination"
       [nzShowPagination]="pagination"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData()"
+      (nzPageSizeChange)="searchData(true)"
       [nzFooter]="footer ? 'Here is Footer' : null"
       [nzTitle]="title ? 'Here is Title' : null"
       [nzSize]="size"
       >
       <thead>
         <tr>
-          <th *ngFor="let t of columns" [nzWidth]="t.width">{{t.title}}</th>
+          <th *ngFor="let t of columns" [nzWidth]="t.width" [nzSort]="t.sort||null" [nzSortKey]="t.sortKey" [nzShowSort]="t.showSort">{{t.title}}</th>
         </tr>
       </thead>
       <tbody>
@@ -54,6 +59,8 @@ export class DynamicTableComponent implements OnInit {
   loading = false;
   sizeChanger = false;
   pagination = true;
+  pageIndex = 1;
+  pageSize = 1;
   header = false;
   title = false;
   footer = false;
@@ -71,5 +78,8 @@ export class DynamicTableComponent implements OnInit {
   ngOnInit() {
 
   }
+
+  searchData() { }
+
 
 }

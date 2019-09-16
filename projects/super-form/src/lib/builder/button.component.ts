@@ -5,10 +5,10 @@ import { FieldConfig } from '../interface';
   selector: 'app-form-button',
   template: `
   <nz-form-item  *ngIf="config.visible!==false">
-    <nz-form-control [nzSm]="formLayout.wrapperCol" [ngSwitch]="config.type">
+    <nz-form-control [nzSm]="formLayout.wrapperCol" [nzExtra]="config.extra" [ngSwitch]="config.type">
       <button *ngSwitchCase="'button'" nz-button (click)="onClick($event)" [nzType]="config.nzType" [nzGhost]="config.ghost" [nzShape]="config.shape" [nzSize]="config.size" [nzLoading]="config.loading" [nzBlock]="config.block" [disabled]="config.disabled"><i nz-icon [nzType]="config.icon" *ngIf="config.icon!=undefined"></i>{{config.label}}<i nz-icon [nzType]="config.rightIcon" *ngIf="config.rightIcon!=undefined"></i></button>
       <nz-button-group *ngSwitchCase="'buttongroup'">
-        <button *ngFor="let child of config.children" nz-button (click)="onClick($event)" [nzType]="child.nzType" [nzGhost]="child.ghost" [nzShape]="child.shape" [nzSize]="child.size" [nzLoading]="child.loading" [nzBlock]="child.block" [disabled]="child.disabled"><i nz-icon [nzType]="child.icon" *ngIf="child.icon!=undefined"></i>{{child.label}}<i nz-icon [nzType]="child.rightIcon" *ngIf="child.rightIcon!=undefined"></i></button>
+        <button *ngFor="let child of config.children" nz-button (click)="handleEvent($event, child.onClick)" [nzType]="child.nzType" [nzGhost]="child.ghost" [nzShape]="child.shape" [nzSize]="child.size" [nzLoading]="child.loading" [nzBlock]="child.block" [disabled]="child.disabled"><i nz-icon [nzType]="child.icon" *ngIf="child.icon!=undefined"></i>{{child.label}}<i nz-icon [nzType]="child.rightIcon" *ngIf="child.rightIcon!=undefined"></i></button>
       </nz-button-group>
     </nz-form-control>
   </nz-form-item>
@@ -49,7 +49,10 @@ export class FormButtonComponent implements OnInit {
     } else {
       callback && callback(e, this.group)
     }
+  }
 
+  handleEvent(e, callback) {
+    callback && callback(e)
   }
 
 }

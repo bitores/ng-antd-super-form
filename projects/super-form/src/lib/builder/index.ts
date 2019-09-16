@@ -10,6 +10,8 @@ import { FormSwitchComponent } from './switch.component';
 import { FormDatePickerComponent } from './datepicker.component';
 import { FormCommonComponent } from './common.component';
 import { FormUploadComponent } from './upload.component';
+import { FormSliderComponent } from './slider.component';
+import { FormRateComponent } from './rate.component';
 
 import { FieldConfig, Field } from '../interface';
 
@@ -17,6 +19,7 @@ import { FieldConfig, Field } from '../interface';
 export const components: { [type: string]: Type<Field> } = {
   number: FormInputComponent,
   input: FormInputComponent,
+  rating: FormInputComponent,
   textarea: FormInputComponent,
   button: FormButtonComponent,
   buttongroup: FormButtonComponent,
@@ -30,9 +33,11 @@ export const components: { [type: string]: Type<Field> } = {
   weekpicker: FormDatePickerComponent,
   rangepicker: FormDatePickerComponent,
   divider: FormCommonComponent,
-  text: FormCommonComponent,
+  explain: FormCommonComponent,
+  slider: FormSliderComponent,
   br: FormCommonComponent,
   upload: FormUploadComponent,
+  rate: FormRateComponent
 };
 
 export {
@@ -45,4 +50,6 @@ export {
   FormDatePickerComponent,
   FormCommonComponent,
   FormUploadComponent,
+  FormSliderComponent,
+  FormRateComponent,
 }

@@ -31,7 +31,7 @@ export class FormComponent implements OnInit, OnChanges {
   };
   @Output()
   submit = new EventEmitter<any>();
-  get controlConfigs() { return this.configs.filter(item => item.type !== 'button'); }
+  get controlConfigs() { return this.configs.filter(item => !['button', 'buttongroup', 'br', 'divider'].includes(item.type)); }
   get value() { return this.form.value; }
   get valid() { return this.form.valid; }
   get changes(): Observable<any> { return this.form.valueChanges; }
@@ -41,6 +41,7 @@ export class FormComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    console.log(Validators.required)
 
     this.layout = ['inline', 'horizontal', 'vertical'].indexOf(this.layout) > -1 ? this.layout : 'horizontal';
     this.formLayout = this.formLayout || (this.layout === 'horizontal' ? {
@@ -80,7 +81,6 @@ export class FormComponent implements OnInit, OnChanges {
           this.form.addControl(controlName, this.creatControl(config));
         });
     }
-
   }
   creatForm(): FormGroup {
     const form = this.fb.group({});
@@ -90,10 +90,7 @@ export class FormComponent implements OnInit, OnChanges {
     return form;
   }
   creatControl(fieldConfig: FieldConfig) {
-    const { type, disabled, initialValue = null, validations } = fieldConfig;
-    let r = Validators.required;
-    // console.log(validations, r)
-    // debugger
+    const { disabled, initialValue = null, validations } = fieldConfig;
     if (validations && validations.indexOf(Validators.required) > -1) {
       fieldConfig.required = true;
     }
@@ -103,12 +100,6 @@ export class FormComponent implements OnInit, OnChanges {
   handleSubmit(event: Event) {
     event.preventDefault();
     event.stopPropagation();
-    // this.service.getValue().take(1).subscribe(val => this.submit.emit({
-    //   valid: this.valid,
-    //   formVal: this.value,
-    //   checkboxVal: val
-    // }));
-
   }
   setDisabled(name: string, disable: boolean) {
     if (this.form.controls[name]) {

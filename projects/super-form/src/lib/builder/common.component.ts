@@ -9,7 +9,7 @@ import { FieldConfig } from '../interface';
     <nz-form-item  *ngIf="config.visible!==false">
       <nz-divider *ngSwitchCase="'divider'" [nzType]="config.nzType" [nzText]="config.text" [nzOrientation]="config.orientation" [nzDashed]="config.dashed"></nz-divider>
       <nz-form-control [nzSm]="formLayout.wrapperCol" [ngSwitch]="config.type">
-        <div *ngSwitchCase="'text'" nz-form-explain>{{config.explain}}</div>
+        <div *ngSwitchCase="'explain'" nz-form-explain>{{config.explain}}</div>
       </nz-form-control>
     </nz-form-item>
   </ng-container>
@@ -55,9 +55,7 @@ export class FormCommonComponent implements OnInit {
     }
   }
 
-  onClick(e) {
-    let callback = this.config.onClick;
+  handleEvent(e, callback) {
     callback && callback(e)
   }
-
 }
