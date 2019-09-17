@@ -22,6 +22,7 @@ export class FormButtonComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
   formLayout: object;
+  autoSearchEvent: Function;
 
   ngOnInit() {
     this.formLayout = {
@@ -45,6 +46,7 @@ export class FormButtonComponent implements OnInit {
         this.group.controls[i].updateValueAndValidity();
       }
       callback && callback(e, this.group)
+      this.autoSearchEvent();
     } else {
       callback && callback(e, this.group)
     }
@@ -53,5 +55,4 @@ export class FormButtonComponent implements OnInit {
   handleEvent(e, callback) {
     callback && callback(e)
   }
-
 }

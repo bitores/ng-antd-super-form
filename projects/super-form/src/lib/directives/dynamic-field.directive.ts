@@ -10,12 +10,10 @@ import { components } from '../builder/index';
   selector: '[appDynamicField][config][group][formLayout]'
 })
 export class DynamicFieldDirective implements OnChanges, OnInit {
-  @Input()
-  config: FieldConfig;
-  @Input()
-  group: FormGroup;
-  @Input()
-  formLayout: object;
+  @Input() config: FieldConfig;
+  @Input() group: FormGroup;
+  @Input() formLayout: object;
+  @Input() autoSearchEvent: Function;
   component: ComponentRef<Field>;
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -28,6 +26,10 @@ export class DynamicFieldDirective implements OnChanges, OnInit {
       this.component.instance.config = this.config;
       this.component.instance.group = this.group;
       this.component.instance.formLayout = this.formLayout;
+      if (['button', "buttongroup"].indexOf(this.config.type) > -1) {
+        this.component.instance.autoSearchEvent = this.autoSearchEvent;
+      }
+
     }
   }
   ngOnInit() {
@@ -42,5 +44,8 @@ export class DynamicFieldDirective implements OnChanges, OnInit {
     this.component.instance.config = this.config;
     this.component.instance.group = this.group;
     this.component.instance.formLayout = this.formLayout;
+    if (['button', "buttongroup"].indexOf(this.config.type) > -1) {
+      this.component.instance.autoSearchEvent = this.autoSearchEvent;
+    }
   }
 }

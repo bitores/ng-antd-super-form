@@ -10,7 +10,7 @@ interface Option {
 @Component({
   selector: 'checkbox-group-control',
   template: `
-  <nz-checkbox-group [(ngModel)]="options" (ngModelChange)="handleEvent($event, changeValue)"></nz-checkbox-group>
+  <nz-checkbox-group [(ngModel)]="options" [ngStyle]="config.style" (ngModelChange)="handleEvent($event, changeValue)"></nz-checkbox-group>
   `,
   styles: [``],
   providers: [
@@ -94,7 +94,7 @@ export class CheckboxGroupControlComponent implements ControlValueAccessor {
   selector: 'app-form-checkbox',
   template: `
   <nz-form-item [formGroup]="group" *ngIf="config.visible!==false">
-    <nz-form-label [nzSm]="formLayout.labelCol" [nzRequired]="config.required" [nzNoColon]="config.noColon">{{config.label}}</nz-form-label>
+    <nz-form-label *ngIf="config.label" [nzSm]="formLayout.labelCol" [nzRequired]="config.required" [nzNoColon]="config.noColon">{{config.label}}</nz-form-label>
     <nz-form-control [nzSm]="formLayout.wrapperCol" [nzExtra]="config.extra" [nzHasFeedback]="config.hasFeedback" [nzSuccessTip]="config.successTip" [nzWarningTip]="config.warningTip" [nzErrorTip]="config.errorTip" [nzValidatingTip]="config.validatingTip">
       <checkbox-group-control  
         [formControlName]="config.key" 

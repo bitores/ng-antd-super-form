@@ -96,7 +96,6 @@ export class UploadControlComponent implements ControlValueAccessor {
 
   // Function to call when the rating changes.
   onChange = (fileList: object[]) => {
-    console.log(this)
   };
 
   changeFileList = (fileList: object[]) => {
@@ -119,7 +118,6 @@ export class UploadControlComponent implements ControlValueAccessor {
   // Allows Angular to update the model (rating).
   // Update the model and changes needed for the view here.
   writeValue(fileList: object[]): void {
-    console.log('upload value', fileList)
     this.fileList = fileList || [];
     if (fileList) {
       this.onChange(this.value)
@@ -163,7 +161,7 @@ export class UploadControlComponent implements ControlValueAccessor {
   }],
   template: `
   <nz-form-item [formGroup]="group"  *ngIf="config.visible!==false">
-    <nz-form-label [nzSm]="formLayout.labelCol" [nzRequired]="config.required" [nzNoColon]="config.noColon">{{config.label}}</nz-form-label>
+    <nz-form-label *ngIf="config.label" [nzSm]="formLayout.labelCol" [nzRequired]="config.required" [nzNoColon]="config.noColon">{{config.label}}</nz-form-label>
     <nz-form-control [nzSm]="formLayout.wrapperCol" [nzExtra]="config.extra" [nzHasFeedback]="config.hasFeedback" [nzSuccessTip]="config.successTip" [nzWarningTip]="config.warningTip" [nzErrorTip]="config.errorTip" [nzValidatingTip]="config.validatingTip">
       <upload-control
         [formControlName]="config.key"

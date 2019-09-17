@@ -8,7 +8,7 @@ import { FieldConfig } from './interface';
   selector: 'dynamic-form',
   template: `
   <form nz-form (ngSubmit)="handleSubmit($event)" [formGroup]="form" [nzLayout]="layout" class="dynamic-form">
-    <ng-container *ngFor="let config of configs" appDynamicField [config]="config" [group]="form" [formLayout]="formLayout"></ng-container>
+    <ng-container *ngFor="let config of configs" appDynamicField [config]="config" [group]="form" [formLayout]="formLayout" [autoSearchEvent]="autoSearchEvent"></ng-container>
   </form>
   `,
   styles: [
@@ -16,20 +16,17 @@ import { FieldConfig } from './interface';
     `
   ]
 })
+export class DynamicFormComponent implements OnInit, OnChanges {
+  @Input() autoSearchEvent: Function;
+  @Input() _bindForm: Function;
 
-
-export class FormComponent implements OnInit, OnChanges {
-  @Input()
-  configs: FieldConfig[];
-  @Input()
-  layout: string = 'horizontal';
-  @Input()
-  formLayout: object = {
+  @Input() configs: FieldConfig[];
+  @Input() layout: string = 'horizontal';
+  @Input() formLayout: object = {
     labelCol: 6,
     wrapperCol: 14
   };
-  @Output()
-  submit = new EventEmitter<any>();
+  @Output() submit = new EventEmitter<any>();
   get controlConfigs() {
     return this.configs.filter(item => !['button', 'buttongroup', 'br', 'divider', 'explain'].includes(item.type));
   }
@@ -38,8 +35,7 @@ export class FormComponent implements OnInit, OnChanges {
   get changes(): Observable<any> { return this.form.valueChanges; }
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.layout = ['inline', 'horizontal', 'vertical'].indexOf(this.layout) > -1 ? this.layout : 'horizontal';
@@ -61,6 +57,7 @@ export class FormComponent implements OnInit, OnChanges {
       }
     })
     this.form = this.creatForm();
+    this._bindForm(this.form)
   }
   ngOnChanges() {
     if (this.form) {
@@ -79,6 +76,7 @@ export class FormComponent implements OnInit, OnChanges {
         });
     }
   }
+
   creatForm(): FormGroup {
     const form = this.fb.group({});
     this.controlConfigs.forEach(item => {

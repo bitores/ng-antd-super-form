@@ -217,6 +217,11 @@ export class DynamicTableComponent implements OnInit {
     this._init(this.config, this.isInit)
   }
 
+  // ngAfterViewInit(): void {
+  //   console.log('table after view init')
+
+  // }
+
   handleEvent(e, callback) {
     callback && callback(e)
   }

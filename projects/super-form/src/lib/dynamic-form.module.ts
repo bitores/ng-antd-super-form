@@ -11,7 +11,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormButtonComponent, FormSelectComponent, FormRadioComponent, FormInputComponent, FormCheckboxComponent, FormSwitchComponent, FormDatePickerComponent, FormCommonComponent, FormUploadComponent, UploadControlComponent, FormSliderComponent, FormRateComponent, CheckboxGroupControlComponent } from './builder/index';
 //
 import { DynamicFieldDirective } from './directives/dynamic-field.directive';
-import { FormComponent } from './dynamic-form.component';
+import { DynamicFormComponent } from './dynamic-form.component';
 import { RatingInputComponent } from './builder/rating-input.component';
 
 // const icons: IconDefinition[] = Object.values(ff);
@@ -42,11 +42,11 @@ import { RatingInputComponent } from './builder/rating-input.component';
     RatingInputComponent,
 
 
-    FormComponent,
+    DynamicFormComponent,
     DynamicFieldDirective,
   ],
   exports: [
-    FormComponent,
+    DynamicFormComponent,
   ],
   entryComponents: [
     FormInputComponent,

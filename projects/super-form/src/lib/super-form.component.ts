@@ -1,5 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { filter } from './utils';
+import { DynamicTableComponent } from './dynamic-table.component';
+import { DynamicFormComponent } from './dynamic-form.component';
 
 
 @Component({
@@ -16,21 +19,38 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
     `
   ]
 })
-export class SuperFormComponent implements OnInit {
-  @Input() search: object = {
-    data: []
-  };
+export class SuperFormComponent {
+  @Input() search: object = {};
   @Input() table: object = {};
-
   @Input() formStyle: object = {};
   @Input() tableStyle: object = {};
 
+  @ViewChild('tableRef', { static: false })
+  public tableRef: DynamicTableComponent;
 
+  form: FormGroup;
 
 
   constructor(private fb: FormBuilder) { }
 
-  ngOnInit(): void {
+  reset(needLoad = true) {
+    this.tableRef.reset(needLoad)
+  }
 
+  // 由子类进行实现或重写  autoSearchEvent
+  refresh = () => {
+    this.tableRef.refresh()
+  }
+
+  _autoSearchEvent = () => {
+    return this.reset();
+  }
+  // params
+  _getSearchParams = () => {
+    return filter(this.form.value)
+  }
+  // _bindForm
+  _bindForm = (form) => {
+    this.form = form;
   }
 }

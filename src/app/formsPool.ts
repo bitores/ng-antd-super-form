@@ -81,7 +81,7 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
         ,
       (control) => {
         if (control.value) {
-          if (control.value.length <= 2) {
+          if (control.value.length < 1) {
             // return {
             //   required: false
             // }

@@ -19,7 +19,6 @@ export interface FieldConfig {
   validatingTip?: string;
   hasFeedback?: boolean;
   visible?: boolean;
-  // buttonType?: BUTTONTYPE;
   [props: string]: any;
 }
 
@@ -27,6 +26,7 @@ export interface Field {
   group: FormGroup;
   config: FieldConfig;
   formLayout: object;
+  autoSearchEvent?: Function;
 }
 
 export interface TableField {

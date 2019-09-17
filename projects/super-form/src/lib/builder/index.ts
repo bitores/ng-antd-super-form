@@ -18,6 +18,7 @@ import { FieldConfig, Field } from '../interface';
 
 export const components: { [type: string]: Type<Field> } = {
   number: FormInputComponent,
+  hidden: FormInputComponent,
   input: FormInputComponent,
   rating: FormInputComponent,
   textarea: FormInputComponent,

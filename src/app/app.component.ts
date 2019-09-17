@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } fro
 import { Observable, Observer } from 'rxjs';
 
 
-import { FormComponent } from 'projects/super-form/src/lib/dynamic-form.component';
+// import { DynamicFormComponent } from 'projects/super-form/src/lib/dynamic-form.component';
 import { formsPool } from './formsPool';
 
 import api from './api/service';
@@ -15,8 +15,8 @@ import { _time } from './utils';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements AfterViewInit {
-  @ViewChild('dynamicForm', { static: false })
-  dynamicForm: FormComponent;
+  // @ViewChild('dynamicForm', { static: false })
+  // dynamicForm: DynamicFormComponent;
 
   // layout = 'inline';
   // formLayout = {
@@ -156,11 +156,91 @@ export class AppComponent implements AfterViewInit {
 
   constructor(private cdr: ChangeDetectorRef) {
     this.search = {
-      // layout: 'inline',
-      // formLayout: {
-
-      // },
-      data: this.formFieldConfigs
+      layout: 'inline',
+      data: [
+        {
+          label: '活动标题',
+          type: 'input',
+          key: 'activityName',
+          placeholder: '请输入关键字查询',
+          style: {
+            width: '100px'
+          }
+        },
+        {
+          label: '活动类型',
+          type: 'select',
+          initialValue: '',
+          options: [
+            { label: '全部', value: '' },
+            { label: '直播活动', value: 1 },
+            { label: '普通活动', value: 2 },
+            { label: '免单活动', value: 3 },
+          ],
+          key: 'activityType',
+          style: {
+            width: '100px'
+          }
+        },
+        {
+          label: '活动状态',
+          type: 'select',
+          initialValue: '',
+          options: [
+            { label: '全部', value: '' },
+            { label: '未开始', value: 1 },
+            { label: '进行中', value: 2 },
+            { label: '已结束', value: 3 },
+          ],
+          key: 'activityStatus',
+          style: {
+            width: '100px'
+          }
+        },
+        {
+          label: '时间类型',
+          type: 'select',
+          options: [
+            { label: '创建时间', value: 'gmtCreated' },
+            { label: '开始时间', value: 'startTime' },
+            { label: '结束时间', value: 'endTime' },
+          ],
+          key: 'activityTime',
+          initialValue: 'startTime',
+          style: {
+            width: '100px'
+          }
+        },
+        {
+          type: 'rangepicker',
+          key: ',releaseTime',
+          dateFormat: 'YYYY-MM-DD',
+          onChange: (date, form) => {
+            form.controls['startTime'].setValue(_time(date[0], "YYYY-MM-DD"))
+            form.controls['endTime'].setValue(_time(date[1], "YYYY-MM-DD"))
+          },
+        },
+        {
+          type: 'hidden',
+          key: 'startTime'
+        },
+        {
+          type: 'hidden',
+          key: 'endTime'
+        },
+        {
+          label: '搜索',
+          key: 'submit',
+          type: 'button',
+          disabled: false,
+          nzType: 'primary',
+          icon: 'search',
+          bindSearch: true,
+          onClick: (e, form) => {
+            console.log(e, form)
+          }
+        },
+      ]
     }
 
     this.table = {

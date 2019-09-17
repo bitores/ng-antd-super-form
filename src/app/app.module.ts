@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { HttpClientModule } from '@angular/common/http';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
@@ -12,7 +11,6 @@ import { NZ_ICONS } from 'ng-zorro-antd/icon';
 import { IconDefinition } from '@ant-design/icons-angular';
 import * as ff from '@ant-design/icons-angular/icons';
 
-import { DynamicFormModule } from 'projects/super-form/src/lib/dynamic-form.module';
 import { SuperFormModule } from 'projects/super-form/src/public-api';
 // import { SuperFormModule } from 'super-form';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,9 +18,6 @@ import { AppComponent } from './app.component';
 
 const icons: IconDefinition[] = Object.values(ff);
 registerLocaleData(zh);
-
-//
-import { DynamicTableModule } from 'projects/super-form/src/lib/dynamic-table.module';
 
 
 @NgModule({
@@ -40,8 +35,8 @@ import { DynamicTableModule } from 'projects/super-form/src/lib/dynamic-table.mo
     NgZorroAntdModule,
     //
     SuperFormModule,
-    DynamicFormModule,
-    DynamicTableModule,
+    // DynamicFormModule,
+    // DynamicTableModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },

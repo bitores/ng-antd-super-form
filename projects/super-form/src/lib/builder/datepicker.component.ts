@@ -6,17 +6,17 @@ import { FieldConfig } from '../interface';
   encapsulation: ViewEncapsulation.None,
   template: `
   <nz-form-item [formGroup]="group"  *ngIf="config.visible!==false">
-    <nz-form-label [nzSm]="formLayout.labelCol" [nzRequired]="config.required" [nzNoColon]="config.noColon">{{config.label}}</nz-form-label>
+    <nz-form-label *ngIf="config.label" [nzSm]="formLayout.labelCol" [nzRequired]="config.required" [nzNoColon]="config.noColon">{{config.label}}</nz-form-label>
     <nz-form-control [nzSm]="formLayout.wrapperCol" [nzExtra]="config.extra" [ngSwitch]="config.type" [nzHasFeedback]="config.hasFeedback" [nzSuccessTip]="config.successTip" [nzWarningTip]="config.warningTip" [nzErrorTip]="config.errorTip" [nzValidatingTip]="config.validatingTip">
-      <nz-year-picker *ngSwitchCase="'yearpicker'" [formControlName]="config.key" [nzAllowClear]="config.allowClear" [nzSize]="config.size" [nzPlaceHolder]="config.placeholder" [nzFormat]="config.format" (ngModelChange)="handleEvent($event, config.onChange)" (nzOnOpenChange)="handleEvent($event, config.onOpenChange)"></nz-year-picker>
-      <nz-month-picker *ngSwitchCase="'monthpicker'" [formControlName]="config.key" [nzAllowClear]="config.allowClear" [nzSize]="config.size" [nzPlaceHolder]="config.placeholder" [nzFormat]="config.format" (ngModelChange)="handleEvent($event, config.onChange)" (nzOnOpenChange)="handleEvent($event, config.onOpenChange)"></nz-month-picker>
-      <nz-week-picker *ngSwitchCase="'weekpicker'" [formControlName]="config.key" [nzAllowClear]="config.allowClear" [nzSize]="config.size" [nzPlaceHolder]="config.placeholder" [nzFormat]="config.format" (ngModelChange)="handleEvent($event, config.onChange)" (nzOnOpenChange)="handleEvent($event, config.onOpenChange)"></nz-week-picker>
-      <nz-date-picker *ngSwitchCase="'datepicker'" [formControlName]="config.key" [nzAllowClear]="config.allowClear" [nzSize]="config.size" [nzPlaceHolder]="config.placeholder" [nzFormat]="config.format" (ngModelChange)="handleEvent($event, config.onChange)" (nzOnOpenChange)="handleEvent($event, config.onOpenChange)" 
+      <nz-year-picker *ngSwitchCase="'yearpicker'" [formControlName]="config.key" [ngStyle]="config.style" [nzAllowClear]="config.allowClear" [nzSize]="config.size" [nzPlaceHolder]="config.placeholder" [nzFormat]="config.format" (ngModelChange)="handleEvent($event, config.onChange)" (nzOnOpenChange)="handleEvent($event, config.onOpenChange)"></nz-year-picker>
+      <nz-month-picker *ngSwitchCase="'monthpicker'" [formControlName]="config.key" [ngStyle]="config.style" [nzAllowClear]="config.allowClear" [nzSize]="config.size" [nzPlaceHolder]="config.placeholder" [nzFormat]="config.format" (ngModelChange)="handleEvent($event, config.onChange)" (nzOnOpenChange)="handleEvent($event, config.onOpenChange)"></nz-month-picker>
+      <nz-week-picker *ngSwitchCase="'weekpicker'" [formControlName]="config.key" [ngStyle]="config.style" [nzAllowClear]="config.allowClear" [nzSize]="config.size" [nzPlaceHolder]="config.placeholder" [nzFormat]="config.format" (ngModelChange)="handleEvent($event, config.onChange)" (nzOnOpenChange)="handleEvent($event, config.onOpenChange)"></nz-week-picker>
+      <nz-date-picker *ngSwitchCase="'datepicker'" [formControlName]="config.key" [ngStyle]="config.style" [nzAllowClear]="config.allowClear" [nzSize]="config.size" [nzPlaceHolder]="config.placeholder" [nzFormat]="config.format" (ngModelChange)="handleEvent($event, config.onChange)" (nzOnOpenChange)="handleEvent($event, config.onOpenChange)" 
         [nzShowToday]="config.showToday"
         [nzShowTime]="config.showTime"
         (nzOnOk)="handleEvent($event,config.onOk)"
       ></nz-date-picker>
-      <nz-range-picker *ngSwitchCase="'rangepicker'" [formControlName]="config.key" [nzAllowClear]="config.allowClear" [nzSize]="config.size" [nzPlaceHolder]="config.placeholder" [nzFormat]="config.format" (ngModelChange)="handleEvent($event, config.onChange)" (nzOnOpenChange)="handleEvent($event, config.onOpenChange)" 
+      <nz-range-picker *ngSwitchCase="'rangepicker'" [formControlName]="config.key"[ngStyle]="config.style" [nzAllowClear]="config.allowClear" [nzSize]="config.size" [nzPlaceHolder]="config.placeholder" [nzFormat]="config.format" (ngModelChange)="handleEvent($event, config.onChange)" (nzOnOpenChange)="handleEvent($event, config.onOpenChange)" 
         [nzShowTime]="config.showTime" 
         (nzOnOk)="handleEvent($event,config.onOk)"
       ></nz-range-picker>
@@ -95,6 +95,6 @@ export class FormDatePickerComponent implements OnInit {
   }
 
   handleEvent(e, callback) {
-    callback && callback(e)
+    callback && callback(e, this.group)
   }
 }
