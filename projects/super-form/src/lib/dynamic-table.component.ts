@@ -32,11 +32,24 @@ const DEFAULT_PAGE_SIZE = 5;
     >
       <thead>
         <tr>
-          <th *ngFor="let t of columns" [nzWidth]="t.width" [nzSort]="t.sort||null" [nzSortKey]="t.sortKey" [nzShowSort]="t.showSort">{{t.title}}</th>
+          <th *ngFor="let t of columns" 
+            [nzWidth]="t.width" 
+            [nzShowCheckbox]="t.showCheckbox"
+            [nzIndeterminate]="t.indeterminate"
+            [nzChecked]="t.checked"
+            (nzCheckedChange)="handleEvent($event, t.checkedChange)"
+            [nzSort]="t.sort||null" 
+            [nzSortKey]="t.sortKey" 
+            [nzShowSort]="t.showSort"
+            (nzSortChange)="handleEvent($event, t.sortChange)"
+          >
+          {{t.title}}
+        </th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let row of basicTable.data">
+          <td nzShowCheckbox *ngIf="config.showCheckbox" (nzCheckedChange)="handleEvent($event, null)"></td>
           <ng-container *ngFor="let t of columns" [ngSwitch]="t.dataIndex">
             <td *ngSwitchCase="'action'" >
               <ng-container *ngFor="let child of t.children; let i=index">

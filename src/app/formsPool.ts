@@ -18,7 +18,7 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       hasFeedback: true,
       // maxlength: 10,
       // visible: false, Validators.minLength(4)
-      // initialValue: 'sdfsdffsd',
+      initialValue: 'sdfsdffsd',
       // size: 'small',
       // rows: 4,
       // autosize: {
@@ -77,17 +77,25 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       errorTip: '请选择',
     },
     {
-      validations: [Validators.required, (control) => {
+      validations: [Validators.required
+        ,
+      (control) => {
         if (control.value) {
-          if (control.value.length <= 1) {
+          if (control.value.length <= 2) {
+            // return {
+            //   required: false
+            // }
+
             return {
-              valid: false
+              result: {
+                info: '请继续上传'
+              }
             }
           }
         }
-
         return null;
-      }],
+      }
+      ],
       errorTip: '请上传',
       label: '图片上传',
       key: 'img',
@@ -145,7 +153,7 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       key: 'time',
       type: 'rangepicker',
       showTime: true,
-      format: 'yyyy-MM-dd HH:mm:ss',
+      format: 'yyyy-MM',//-dd HH:mm:ss
       errorTip: '请选择',
       onChange: (date) => {
         console.log('=', date)
@@ -250,30 +258,36 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       label: '喜好',
       type: 'checkbox',
       key: 'fav',
-      validations: [Validators.required, (control) => {
-        if (control.value) {
-          let ret = control.value.filter(item => item.checked)
-          if (ret.length < 1) {
-            return {
-              valid: false
+      validations: [
+        Validators.required,
+        (control) => {
+          if (control.value) {
+            let ret = control.value;//.filter(item => item.checked)
+            if (ret.length < 1) {
+              return {
+                valid: false
+              }
             }
           }
           return null;
         }
-
-        return null;
-      }],
+      ],
       errorTip: 'xxx',
       // initialValue: [1],
       explain: '至少选择一个选择',
       disabled: false,
+      initialValue: [1, 3],
       options: [
         {
           label: '男',
           value: 1,
+          // checked: true
         }, {
           label: '女',
           value: 2,
+        }, {
+          label: '未知',
+          value: 3,
         }
       ]
     },
@@ -339,6 +353,22 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       bindSearch: true,
       onClick: (e, form) => {
         console.log(e, form)
+
+      }
+    },
+    {
+      formLayout: {
+        wrapperCol: {
+          span: 14,
+          offset: 6
+        }
+      },
+      label: '重置',
+      key: '',
+      type: 'button',
+      onClick: (e, form) => {
+        console.log(form, form.reset)
+        form.reset()
       }
     }
   ]

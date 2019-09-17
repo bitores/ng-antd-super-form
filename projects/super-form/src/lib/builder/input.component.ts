@@ -35,8 +35,8 @@ export class FormInputComponent implements OnInit {
     switch (this.config.type) {
       case "number": {
         _config = {
-          formatter: (v) => { console.log(v); return v },
-          parser: (v) => { console.log(v); return v },
+          formatter: (v) => { return v },
+          parser: (v) => { return v },
           precision: 2,
           step: 1,
           max: Infinity,

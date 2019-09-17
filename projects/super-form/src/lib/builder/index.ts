@@ -2,7 +2,7 @@ import { Type } from '@angular/core';
 
 
 import { FormButtonComponent } from './button.component';
-import { FormCheckboxComponent } from './checkbox.component';
+import { FormCheckboxComponent, CheckboxGroupControlComponent } from './checkbox.component';
 import { FormInputComponent } from './input.component';
 import { FormRadioComponent } from './radio.component';
 import { FormSelectComponent } from './select.component';
@@ -46,6 +46,7 @@ export {
   FormSelectComponent,
   FormRadioComponent,
   FormCheckboxComponent,
+  CheckboxGroupControlComponent,
   FormSwitchComponent,
   FormDatePickerComponent,
   FormCommonComponent,

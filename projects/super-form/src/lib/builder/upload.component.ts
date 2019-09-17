@@ -119,11 +119,12 @@ export class UploadControlComponent implements ControlValueAccessor {
   // Allows Angular to update the model (rating).
   // Update the model and changes needed for the view here.
   writeValue(fileList: object[]): void {
-    console.log('write==')
+    console.log('upload value', fileList)
     this.fileList = fileList || [];
-    this.onChange(this.value)
+    if (fileList) {
+      this.onChange(this.value)
+    }
   }
-
 
   // Allows Angular to register a function to call when the model (rating) changes.
   // Save the function as a property to call later here.

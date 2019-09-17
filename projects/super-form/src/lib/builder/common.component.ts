@@ -8,7 +8,7 @@ import { FieldConfig } from '../interface';
     <br  *ngSwitchCase="'br'"/>
     <nz-form-item  *ngIf="config.visible!==false">
       <nz-divider *ngSwitchCase="'divider'" [nzType]="config.nzType" [nzText]="config.text" [nzOrientation]="config.orientation" [nzDashed]="config.dashed"></nz-divider>
-      <nz-form-control [nzSm]="formLayout.wrapperCol" [ngSwitch]="config.type">
+      <nz-form-control [nzSm]="formLayout.wrapperCol" [ngSwitch]="config.type"  [nzExtra]="config.extra" [nzHasFeedback]="config.hasFeedback" [nzSuccessTip]="config.successTip" [nzWarningTip]="config.warningTip" [nzErrorTip]="config.errorTip" [nzValidatingTip]="config.validatingTip">
         <div *ngSwitchCase="'explain'" nz-form-explain>{{config.explain}}</div>
       </nz-form-control>
     </nz-form-item>
@@ -24,9 +24,6 @@ export class FormCommonComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
   formLayout: object;
-  constructor() {
-    console.log('constr')
-  }
 
   ngOnInit() {
     this.formLayout = {

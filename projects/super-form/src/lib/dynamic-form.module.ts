@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 // import { NZ_ICONS } from 'ng-zorro-antd/icon';
@@ -8,7 +8,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 // import * as ff from '@ant-design/icons-angular/icons';
 
 
-import { FormButtonComponent, FormSelectComponent, FormRadioComponent, FormInputComponent, FormCheckboxComponent, FormSwitchComponent, FormDatePickerComponent, FormCommonComponent, FormUploadComponent, UploadControlComponent, FormSliderComponent, FormRateComponent } from './builder/index';
+import { FormButtonComponent, FormSelectComponent, FormRadioComponent, FormInputComponent, FormCheckboxComponent, FormSwitchComponent, FormDatePickerComponent, FormCommonComponent, FormUploadComponent, UploadControlComponent, FormSliderComponent, FormRateComponent, CheckboxGroupControlComponent } from './builder/index';
 //
 import { DynamicFieldDirective } from './directives/dynamic-field.directive';
 import { FormComponent } from './dynamic-form.component';
@@ -19,6 +19,7 @@ import { RatingInputComponent } from './builder/rating-input.component';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     //
@@ -30,6 +31,7 @@ import { RatingInputComponent } from './builder/rating-input.component';
     FormButtonComponent,
     FormRadioComponent,
     FormCheckboxComponent,
+    CheckboxGroupControlComponent,
     FormSwitchComponent,
     FormDatePickerComponent,
     FormCommonComponent,
@@ -51,6 +53,7 @@ import { RatingInputComponent } from './builder/rating-input.component';
     FormSelectComponent,
     FormButtonComponent,
     FormCheckboxComponent,
+    CheckboxGroupControlComponent,
     FormRadioComponent,
     FormSwitchComponent,
     FormDatePickerComponent,

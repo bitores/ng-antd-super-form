@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, OnChanges, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-// import 'rxjs/add/operator/take';
 import { FieldConfig } from './interface';
 
 
@@ -43,8 +42,6 @@ export class FormComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    console.log(Validators.required)
-
     this.layout = ['inline', 'horizontal', 'vertical'].indexOf(this.layout) > -1 ? this.layout : 'horizontal';
     this.formLayout = this.formLayout || (this.layout === 'horizontal' ? {
       labelCol: {
@@ -63,8 +60,6 @@ export class FormComponent implements OnInit, OnChanges {
         item.required = true;
       }
     })
-    console.log(this.configs)
-
     this.form = this.creatForm();
   }
   ngOnChanges() {

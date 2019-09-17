@@ -33,12 +33,18 @@ export class AppComponent implements AfterViewInit {
     // showQuickJumper: true,
     showSizeChanger: true,
     pageSizeOptions: [5, 10, 20],
+    // showCheckbox: true,
     // title: 'Header',
     // footer: 'Footer',
     // // loading: true,
   }
 
   columns = [
+    // {
+    //   showCheckbox: true,
+    //   checked: true,
+    //   indeterminate: true,
+    // },
     {
       title: '活动ID',
       dataIndex: 'activityId',
@@ -125,6 +131,7 @@ export class AppComponent implements AfterViewInit {
     {
       title: 'Action',
       dataIndex: 'action',
+      width: '150px',
       children: [
         {
           title: '详情',
@@ -144,7 +151,24 @@ export class AppComponent implements AfterViewInit {
   ]
   dataSource = [];
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  search = {}
+  table = {}
+
+  constructor(private cdr: ChangeDetectorRef) {
+    this.search = {
+      // layout: 'inline',
+      // formLayout: {
+
+      // },
+      data: this.formFieldConfigs
+    }
+
+    this.table = {
+      columns: this.columns,
+      action: this.queryList,
+      isInit: true
+    }
+  }
 
   queryList(parms) {
     return api.queryList(parms);
@@ -170,7 +194,6 @@ export class AppComponent implements AfterViewInit {
     //   if (res.status) {
     //     this.dataSource = res.entry || [];
     //   }
-
     // })
   }
 
