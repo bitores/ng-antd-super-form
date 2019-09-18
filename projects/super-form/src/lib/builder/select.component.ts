@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FieldConfig } from '../interface';
+import { FieldConfig, FormLayout } from '../interface';
 @Component({
   selector: 'app-form-select',
   template: `
@@ -42,9 +42,7 @@ import { FieldConfig } from '../interface';
 export class FormSelectComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
-  formLayout: object;
-
-  listOfSelectedValue = [];
+  formLayout: FormLayout;
 
   ngOnInit() {
     this.formLayout = {
@@ -62,7 +60,7 @@ export class FormSelectComponent implements OnInit {
     }
   }
 
-  handleEvent(e, callback) {
+  handleEvent(e: any, callback?: Function) {
     callback && callback(e)
   }
 

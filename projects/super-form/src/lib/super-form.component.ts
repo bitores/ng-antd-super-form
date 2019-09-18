@@ -1,13 +1,27 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { filter } from './utils';
 import { DynamicTableComponent } from './dynamic-table.component';
 import { DynamicFormComponent } from './dynamic-form.component';
+import { FormLayout } from './interface';
 
 
 @Component({
   selector: 'ng-antd-super-form',
-  templateUrl: './super-form.component.html',
+  template: `
+<div class="super-form-style">
+  <div class="super-form-formstyle" [ngStyle]="formStyle">
+    <dynamic-form [layout]="search.layout" [formLayout]="search.formLayout" [configs]="search.data"
+      [autoSearchEvent]="_autoSearchEvent" [_bindForm]="_bindForm">
+    </dynamic-form>
+  </div>
+  <div class="super-form-tablestyle" [ngStyle]="tableStyle">
+    <dynamic-table #tableRef [columns]="table.columns" [action]="table.action" [config]="table.props"
+      [isInit]="table.isInit" [params]="_getSearchParams">
+    </dynamic-table>
+  </div>
+</div>
+  `,
   styles: [
     `
     .super-form-formstyle, .super-form-tablestyle{
@@ -20,8 +34,17 @@ import { DynamicFormComponent } from './dynamic-form.component';
   ]
 })
 export class SuperFormComponent {
-  @Input() search: object = {};
-  @Input() table: object = {};
+  @Input() search: {
+    data?: any;
+    layout: string;
+    formLayout: FormLayout;
+  };
+  @Input() table: {
+    action: Function;
+    isInit: boolean;
+    columns: object[];
+    props: any;
+  };
   @Input() formStyle: object = {};
   @Input() tableStyle: object = {};
 
@@ -50,7 +73,7 @@ export class SuperFormComponent {
     return filter(this.form.value)
   }
   // _bindForm
-  _bindForm = (form) => {
+  _bindForm = (form: FormGroup) => {
     this.form = form;
   }
 }

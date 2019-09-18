@@ -24,12 +24,17 @@
       ],
       "super-form/*": [
         "dist/super-form/*"
+      ],
+      "xxx": [
+        "dist/xxx"
+      ],
+      "xxx/*": [
+        "dist/xxx/*"
       ]
     }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true,
-    "allowSyntheticDefaultImports": true
+    "strictInjectionParameters": true
   }
 }

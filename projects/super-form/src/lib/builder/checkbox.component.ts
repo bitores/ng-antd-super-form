@@ -1,6 +1,6 @@
-import { Component, OnInit, forwardRef, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, forwardRef, Input } from '@angular/core';
 import { FormGroup, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { FieldConfig } from '../interface';
+import { FieldConfig, FormLayout } from '../interface';
 
 interface Option {
   label: string,
@@ -80,8 +80,8 @@ export class CheckboxGroupControlComponent implements ControlValueAccessor {
   }
 
 
-  handleEvent = (e, callback) => {
-    callback && callback(e.reduce((pre, item) => {
+  handleEvent = (e: any, callback?: Function) => {
+    callback && callback(e.reduce((pre: any, item: any) => {
       if (item.checked) {
         pre.push(item.value)
       }
@@ -112,7 +112,7 @@ export class CheckboxGroupControlComponent implements ControlValueAccessor {
 export class FormCheckboxComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
-  formLayout: object;
+  formLayout: FormLayout;
 
   ngOnInit() {
     // console.log('??', this.group.controls[this.config.key])

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FieldConfig } from '../interface';
+import { FieldConfig, FormLayout } from '../interface';
 @Component({
   selector: 'app-form-radio',
   encapsulation: ViewEncapsulation.None,
@@ -25,8 +25,7 @@ import { FieldConfig } from '../interface';
 export class FormRadioComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
-  formLayout: object;
-  constructor() { }
+  formLayout: FormLayout;
 
   ngOnInit() {
     this.formLayout = {
@@ -40,7 +39,7 @@ export class FormRadioComponent implements OnInit {
     }
   }
 
-  handleEvent(e, callback) {
+  handleEvent(e: any, callback?: Function) {
     callback && callback(e, this.group)
   }
 }

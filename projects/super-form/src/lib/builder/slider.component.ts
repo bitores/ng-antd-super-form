@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FieldConfig } from '../interface';
+import { FieldConfig, FormLayout } from '../interface';
 @Component({
   selector: 'app-form-slider',
   template: `
@@ -34,7 +34,7 @@ import { FieldConfig } from '../interface';
 export class FormSliderComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
-  formLayout: object;
+  formLayout: FormLayout;
 
   ngOnInit() {
     this.formLayout = {
@@ -57,7 +57,7 @@ export class FormSliderComponent implements OnInit {
     }
   }
 
-  handleEvent(e, callback) {
+  handleEvent(e: any, callback?: Function) {
     callback && callback(e)
   }
 

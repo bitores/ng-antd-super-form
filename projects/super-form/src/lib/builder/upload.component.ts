@@ -1,6 +1,6 @@
 import { Component, OnInit, forwardRef, Input } from '@angular/core';
 import { FormGroup, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FieldConfig } from '../interface';
+import { FieldConfig, FormLayout } from '../interface';
 
 import { UploadFile } from 'ng-zorro-antd/upload';
 
@@ -146,7 +146,7 @@ export class UploadControlComponent implements ControlValueAccessor {
     this.previewVisible = true;
   };
 
-  handleEvent = (e, callback) => {
+  handleEvent = (e: any, callback?: Function) => {
     console.log(e)
     callback && callback(e.fileList)
   }
@@ -182,7 +182,7 @@ export class UploadControlComponent implements ControlValueAccessor {
 export class FormUploadComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
-  formLayout: object;
+  formLayout: FormLayout;
 
   ngOnInit() {
     this.formLayout = {

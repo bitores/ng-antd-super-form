@@ -1,7 +1,7 @@
-import { NgModule, OnChanges, OnInit, Input, ComponentRef } from '@angular/core';
+import { NgModule, Input } from '@angular/core';
 import { CommonModule } from "@angular/common";
-import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { SuperFormComponent } from './super-form.component';
 import { FieldConfig } from './interface';
 import { DynamicFormModule } from './dynamic-form.module';
@@ -26,25 +26,7 @@ import { DynamicTableModule } from './dynamic-table.module';
   ],
   exports: [SuperFormComponent]
 })
-export class SuperFormModule implements OnChanges, OnInit {
-
-  @Input()
-  config: FieldConfig[];
-
-  @Input()
-  group: FormGroup;
-  // component: ComponentRef<Field>
-
-  constructor() {
-
-  }
-
-  ngOnChanges() {
-    console.log('changes ...')
-  }
-
-  ngOnInit() {
-    console.log('init ...')
-  }
-
+export class SuperFormModule {
+  @Input() config: FieldConfig[];
+  @Input() group: FormGroup;
 }

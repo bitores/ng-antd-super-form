@@ -88,7 +88,9 @@ export class DynamicTableComponent implements OnInit {
 
   @Input() columns: object[];
   @Input() dataSource: object[];
-  @Input() config: object;
+  @Input() config: {
+    [pro: string]: any
+  };
 
   //
   _loading: boolean = false;
@@ -99,7 +101,7 @@ export class DynamicTableComponent implements OnInit {
   //
 
 
-  _init(config, isInit = false) {
+  _init(config: any, isInit: boolean = false) {
     const { current = 1, pageSize = DEFAULT_PAGE_SIZE, dataSource, total = 0 } = config;
 
     this._list = dataSource;
@@ -137,14 +139,14 @@ export class DynamicTableComponent implements OnInit {
       action,
       pageName = "page",
       pageSizeName = "pageSize",
-      valueMap = (res) => {
+      valueMap = (res: any) => {
         return {
           status: res.status,
           dataSource: res.entry,
           total: res.totalRecordSize
         }
       },
-      actionError = (msg) => console.error(msg),
+      actionError = (msg: any) => console.error(msg),
       params = () => ({}),
       extraParams = () => ({}),
       _current,
@@ -170,7 +172,7 @@ export class DynamicTableComponent implements OnInit {
       throw new Error('need action filed')
     }
     this._loading = true;
-    request.then(res => {
+    request.then((res: any) => {
       const { dataSource, total, status } = valueMap(res);
       if (status) {
         this._list = dataSource;
@@ -217,12 +219,7 @@ export class DynamicTableComponent implements OnInit {
     this._init(this.config, this.isInit)
   }
 
-  // ngAfterViewInit(): void {
-  //   console.log('table after view init')
-
-  // }
-
-  handleEvent(e, callback) {
+  handleEvent(e: any, callback?: Function) {
     callback && callback(e)
   }
 }

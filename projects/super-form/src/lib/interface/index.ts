@@ -1,7 +1,10 @@
 
 import { ValidatorFn, FormGroup } from '@angular/forms';
 
-enum BUTTONTYPE { default = 'default', primary = 'primary', dashed = 'dashed', danger = 'danger', link = 'link' };
+export interface FormLayout {
+  labelCol?: object;
+  wrapperCol?: object;
+}
 
 export interface FieldConfig {
   key: string;
@@ -25,7 +28,7 @@ export interface FieldConfig {
 export interface Field {
   group: FormGroup;
   config: FieldConfig;
-  formLayout: object;
+  formLayout?: FormLayout;
   autoSearchEvent?: Function;
 }
 

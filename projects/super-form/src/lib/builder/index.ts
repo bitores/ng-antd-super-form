@@ -3,7 +3,7 @@ import { Type } from '@angular/core';
 
 import { FormButtonComponent } from './button.component';
 import { FormCheckboxComponent, CheckboxGroupControlComponent } from './checkbox.component';
-import { FormInputComponent } from './input.component';
+import { FormInputComponent } from './form-input.component';
 import { FormRadioComponent } from './radio.component';
 import { FormSelectComponent } from './select.component';
 import { FormSwitchComponent } from './switch.component';
@@ -13,7 +13,7 @@ import { FormUploadComponent, UploadControlComponent } from './upload.component'
 import { FormSliderComponent } from './slider.component';
 import { FormRateComponent } from './rate.component';
 
-import { FieldConfig, Field } from '../interface';
+import { Field } from '../interface';
 
 
 export const components: { [type: string]: Type<Field> } = {

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FieldConfig } from '../interface';
+import { FieldConfig, FormLayout } from '../interface';
 @Component({
   selector: 'app-form-input',
   template: `
-<nz-form-item [formGroup]="group"  *ngIf="config.visible!==false" [hidden]="config.nzType===hidden">
+<nz-form-item [formGroup]="group"  *ngIf="config.visible!==false">
   <nz-form-label *ngIf="config.label" [nzSm]="formLayout.labelCol" [nzRequired]="config.required" [nzNoColon]="config.noColon">{{config.label}}</nz-form-label>
   <nz-form-control [nzSm]="formLayout.wrapperCol" [nzExtra]="config.extra" [ngSwitch]="config.type" [nzHasFeedback]="config.hasFeedback" [nzSuccessTip]="config.successTip" [nzWarningTip]="config.warningTip" [nzErrorTip]="config.errorTip" [nzValidatingTip]="config.validatingTip">
     <nz-input-number *ngSwitchCase="'number'" [formControlName]="config.key" [ngStyle]="config.style" [nzPlaceHolder]="config.placeholder"  [nzSize]="config.size" [nzMax]="config.max" [nzMin]="config.min" [nzStep]="config.step" [nzPrecision]="config.precision" [nzFormatter]="config.formatter" [nzParser]="config.parser"></nz-input-number>
@@ -24,8 +24,7 @@ import { FieldConfig } from '../interface';
 export class FormInputComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
-  formLayout: object;
-  constructor() { }
+  formLayout: FormLayout;
 
   ngOnInit() {
     this.formLayout = {
@@ -36,8 +35,8 @@ export class FormInputComponent implements OnInit {
     switch (this.config.type) {
       case "number": {
         _config = {
-          formatter: (v) => { return v },
-          parser: (v) => { return v },
+          formatter: (v: any) => { return v },
+          parser: (v: any) => { return v },
           precision: 2,
           step: 1,
           max: Infinity,

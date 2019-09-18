@@ -161,14 +161,6 @@
             "node_modules/ng-zorro-antd/ng-zorro-antd.css"
           ]
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/super-form/src/test.ts",
-            "tsConfig": "projects/super-form/tsconfig.spec.json",
-            "karmaConfig": "projects/super-form/karma.conf.js"
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
