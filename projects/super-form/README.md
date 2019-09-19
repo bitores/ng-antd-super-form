@@ -1,15 +1,15 @@
 # SuperForm
 
-1. Form Angular
+1. Angular
 > npm i -S ng-antd-super-form
 
-2. Form Vue
+2. Vue
 > npm i -S vue-antd-super-form
 
-3. Form React
+3. React
 > npm i -S react-antd-super-form
 
-
+ 目前为止, 三大框架都可以使用的 super-form 基本已完成, 在保证同各版本的 antd api 属性要同的情况下, 格式基本一样, 可以相互参考各版本的文档, 有空我会再整理一个文档, 有兴趣的也可以一起参考进来
 
 ```html
 <ng-antd-super-form [search]="search" [table]="table"></ng-antd-super-form>

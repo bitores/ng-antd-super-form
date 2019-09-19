@@ -8,6 +8,7 @@ import { formsPool } from './formsPool';
 
 import api from './api/service';
 import { _time } from './utils';
+import { SFModalComponent } from 'projects/super-form/src/public-api';
 
 @Component({
   selector: 'app-root',
@@ -154,6 +155,11 @@ export class AppComponent implements AfterViewInit {
   search = {}
   table = {}
 
+  modal: SFModalComponent;
+  _bindModal = (modal) => {
+    this.modal = modal;
+  }
+
   constructor(private cdr: ChangeDetectorRef) {
     this.search = {
       layout: 'inline',
@@ -216,8 +222,11 @@ export class AppComponent implements AfterViewInit {
           key: ',releaseTime',
           dateFormat: 'YYYY-MM-DD',
           onChange: (date, form) => {
-            form.controls['startTime'].setValue(_time(date[0], "YYYY-MM-DD"))
-            form.controls['endTime'].setValue(_time(date[1], "YYYY-MM-DD"))
+            if (date) {
+              form.controls['startTime'].setValue(_time(date[0], "YYYY-MM-DD"))
+              form.controls['endTime'].setValue(_time(date[1], "YYYY-MM-DD"))
+            }
+
           },
         },
         {
@@ -240,6 +249,15 @@ export class AppComponent implements AfterViewInit {
             console.log(e, form)
           }
         },
+        {
+          label: 'Dialog',
+          key: 'dialog',
+          type: 'button',
+          onClick: (e, form) => {
+            this.modal.show()
+            // this.modal.error()
+          }
+        }
       ]
     }
 
@@ -248,6 +266,11 @@ export class AppComponent implements AfterViewInit {
       action: this.queryList,
       isInit: true
     }
+  }
+
+  onModalOk(e, form, show) {
+    console.log('on modal ok', e, form, show)
+    show(false)
   }
 
   queryList(parms) {

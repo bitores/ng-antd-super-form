@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FieldConfig, FormLayout } from '../interface';
 @Component({
-  selector: 'app-form-radio',
+  selector: 'sf-radio',
   encapsulation: ViewEncapsulation.None,
   template: `
   <nz-form-item [formGroup]="group"  *ngIf="config.visible!==false">
@@ -22,7 +22,7 @@ import { FieldConfig, FormLayout } from '../interface';
     `
   ]
 })
-export class FormRadioComponent implements OnInit {
+export class SFRadioComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
   formLayout: FormLayout;

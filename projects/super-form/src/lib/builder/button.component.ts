@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FieldConfig, FormLayout } from '../interface';
 @Component({
-  selector: 'app-form-button',
+  selector: 'sf-button',
   template: `
   <nz-form-item  *ngIf="config.visible!==false">
     <nz-form-control [nzSm]="formLayout.wrapperCol" [nzExtra]="config.extra" [ngSwitch]="config.type">
@@ -18,7 +18,7 @@ import { FieldConfig, FormLayout } from '../interface';
     `
   ]
 })
-export class FormButtonComponent implements OnInit {
+export class SFButtonComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
   formLayout: FormLayout;

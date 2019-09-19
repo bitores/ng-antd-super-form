@@ -7,9 +7,9 @@ import { components } from '../builder/index';
 
 
 @Directive({
-  selector: '[appDynamicField][config][group][formLayout]'
+  selector: '[sfField][config][group][formLayout]'
 })
-export class DynamicFieldDirective implements OnChanges, OnInit {
+export class SFFieldDirective implements OnChanges, OnInit {
   @Input() config: FieldConfig;
   @Input() group: FormGroup;
   @Input() formLayout: object;

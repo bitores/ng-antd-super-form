@@ -91,7 +91,7 @@ export class CheckboxGroupControlComponent implements ControlValueAccessor {
 }
 
 @Component({
-  selector: 'app-form-checkbox',
+  selector: 'sf-checkbox',
   template: `
   <nz-form-item [formGroup]="group" *ngIf="config.visible!==false">
     <nz-form-label *ngIf="config.label" [nzSm]="formLayout.labelCol" [nzRequired]="config.required" [nzNoColon]="config.noColon">{{config.label}}</nz-form-label>
@@ -109,7 +109,7 @@ export class CheckboxGroupControlComponent implements ControlValueAccessor {
     `
   ]
 })
-export class FormCheckboxComponent implements OnInit {
+export class SFCheckboxComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
   formLayout: FormLayout;

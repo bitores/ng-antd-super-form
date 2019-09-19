@@ -5,10 +5,10 @@ import { FieldConfig } from './interface';
 
 
 @Component({
-  selector: 'dynamic-form',
+  selector: 'sf-form',
   template: `
   <form nz-form (ngSubmit)="handleSubmit($event)" [formGroup]="form" [nzLayout]="layout" class="dynamic-form">
-    <ng-container *ngFor="let config of configs" appDynamicField [config]="config" [group]="form" [formLayout]="formLayout" [autoSearchEvent]="autoSearchEvent"></ng-container>
+    <ng-container *ngFor="let config of configs" sfField [config]="config" [group]="form" [formLayout]="formLayout" [autoSearchEvent]="autoSearchEvent"></ng-container>
   </form>
   `,
   styles: [
@@ -16,7 +16,7 @@ import { FieldConfig } from './interface';
     `
   ]
 })
-export class DynamicFormComponent implements OnInit, OnChanges {
+export class SFFormComponent implements OnInit, OnChanges {
   @Input() autoSearchEvent: Function;
   @Input() _bindForm: Function;
 

@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { SuperFormComponent } from './super-form.component';
 import { FieldConfig } from './interface';
-import { DynamicFormModule } from './dynamic-form.module';
-import { DynamicTableModule } from './dynamic-table.module';
+import { SFFormModule } from './form.module';
+import { SFTableModule } from './table.module';
 
 
 
@@ -17,8 +17,8 @@ import { DynamicTableModule } from './dynamic-table.module';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    DynamicFormModule,
-    DynamicTableModule
+    SFFormModule,
+    SFTableModule
   ],
   providers: [
     // { provide: NZ_I18N, useValue: zh_CN },

@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 const DEFAULT_PAGE_SIZE = 5;
 
 @Component({
-  selector: 'dynamic-table',
+  selector: 'sf-table',
   template: `
     <nz-table #basicTable 
       [nzScroll]="config.fixHeader ? { y: '240px' } : null"
@@ -76,7 +76,7 @@ const DEFAULT_PAGE_SIZE = 5;
     </ng-template>
   `
 })
-export class DynamicTableComponent implements OnInit {
+export class SFTableComponent implements OnInit {
   @Input() action: Function;
   @Input() params: Function;
   @Input() extraParams: () => object | object;
@@ -190,7 +190,7 @@ export class DynamicTableComponent implements OnInit {
     let config = this.config;
     this.config = {
       bordered: false,
-      loading: false,
+      loading: true,
       header: false,
       title: false,
       footer: false,

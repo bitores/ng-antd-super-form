@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FieldConfig, FormLayout } from '../interface';
 @Component({
-  selector: 'app-form-switch',
+  selector: 'sf-datepicker',
   encapsulation: ViewEncapsulation.None,
   template: `
   <nz-form-item [formGroup]="group"  *ngIf="config.visible!==false">
@@ -29,7 +29,7 @@ import { FieldConfig, FormLayout } from '../interface';
     `
   ]
 })
-export class FormDatePickerComponent implements OnInit {
+export class SFDatePickerComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
   formLayout: FormLayout;

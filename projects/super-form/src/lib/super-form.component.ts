@@ -1,8 +1,8 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { filter } from './utils';
-import { DynamicTableComponent } from './dynamic-table.component';
-import { DynamicFormComponent } from './dynamic-form.component';
+import { SFTableComponent } from './table.component';
+import { SFFormComponent } from './form.component';
 import { FormLayout } from './interface';
 
 
@@ -11,14 +11,14 @@ import { FormLayout } from './interface';
   template: `
 <div class="super-form-style">
   <div class="super-form-formstyle" [ngStyle]="formStyle">
-    <dynamic-form [layout]="search.layout" [formLayout]="search.formLayout" [configs]="search.data"
+    <sf-form [layout]="search.layout" [formLayout]="search.formLayout" [configs]="search.data"
       [autoSearchEvent]="_autoSearchEvent" [_bindForm]="_bindForm">
-    </dynamic-form>
+    </sf-form>
   </div>
   <div class="super-form-tablestyle" [ngStyle]="tableStyle">
-    <dynamic-table #tableRef [columns]="table.columns" [action]="table.action" [config]="table.props"
+    <sf-table #tableRef [columns]="table.columns" [action]="table.action" [config]="table.props"
       [isInit]="table.isInit" [params]="_getSearchParams">
-    </dynamic-table>
+    </sf-table>
   </div>
 </div>
   `,
@@ -49,7 +49,7 @@ export class SuperFormComponent {
   @Input() tableStyle: object = {};
 
   @ViewChild('tableRef', { static: false })
-  public tableRef: DynamicTableComponent;
+  public tableRef: SFTableComponent;
 
   form: FormGroup;
 

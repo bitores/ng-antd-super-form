@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FieldConfig, FormLayout } from '../interface';
 @Component({
-  selector: 'app-form-button',
+  selector: 'sf-common',
   template: `
   <ng-container  [ngSwitch]="config.type">
     <br  *ngSwitchCase="'br'"/>
@@ -20,7 +20,7 @@ import { FieldConfig, FormLayout } from '../interface';
     `
   ]
 })
-export class FormCommonComponent implements OnInit {
+export class SFCommonComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
   formLayout: FormLayout;

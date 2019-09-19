@@ -153,10 +153,10 @@ export class UploadControlComponent implements ControlValueAccessor {
 }
 
 @Component({
-  selector: 'app-form-upload',
+  selector: 'sf-upload',
   providers: [{
     provide: NG_VALUE_ACCESSOR,
-    useExisting: FormUploadComponent,
+    useExisting: SFUploadComponent,
     multi: true
   }],
   template: `
@@ -176,10 +176,7 @@ export class UploadControlComponent implements ControlValueAccessor {
     `
   ]
 })
-
-
-
-export class FormUploadComponent implements OnInit {
+export class SFUploadComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
   formLayout: FormLayout;

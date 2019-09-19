@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 
-import { DynamicTableComponent } from './dynamic-table.component';
+import { SFTableComponent } from './table.component';
 
 
 @NgModule({
@@ -16,10 +16,10 @@ import { DynamicTableComponent } from './dynamic-table.component';
     NgZorroAntdModule,
   ],
   declarations: [
-    DynamicTableComponent
+    SFTableComponent
   ],
   exports: [
-    DynamicTableComponent,
+    SFTableComponent,
   ]
 })
-export class DynamicTableModule { }
+export class SFTableModule { }

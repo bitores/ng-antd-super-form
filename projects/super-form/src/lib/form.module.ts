@@ -9,24 +9,24 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 
 
 import {
-  FormButtonComponent,
-  FormSelectComponent,
-  FormRadioComponent,
-  FormInputComponent,
-  FormCheckboxComponent,
-  FormSwitchComponent,
-  FormDatePickerComponent,
-  FormCommonComponent,
-  FormUploadComponent,
+  SFButtonComponent,
+  SFSelectComponent,
+  SFRadioComponent,
+  SFInputComponent,
+  SFCheckboxComponent,
+  SFSwitchComponent,
+  SFDatePickerComponent,
+  SFCommonComponent,
+  SFUploadComponent,
   UploadControlComponent,
-  FormSliderComponent,
-  FormRateComponent,
+  SFSliderComponent,
+  SFRateComponent,
   CheckboxGroupControlComponent
   // } from './builder/index';  // error
 } from 'projects/super-form/src/lib/builder/index'; // ok
 //
-import { DynamicFieldDirective } from './directives/dynamic-field.directive';
-import { DynamicFormComponent } from './dynamic-form.component';
+import { SFFieldDirective } from './directives/sf-field.directive';
+import { SFFormComponent } from './form.component';
 import { RatingInputComponent } from './builder/rating-input.component';
 
 // const icons: IconDefinition[] = Object.values(ff);
@@ -41,46 +41,46 @@ import { RatingInputComponent } from './builder/rating-input.component';
     NgZorroAntdModule,
   ],
   declarations: [
-    FormInputComponent,
-    FormSelectComponent,
-    FormButtonComponent,
-    FormRadioComponent,
-    FormCheckboxComponent,
+    SFInputComponent,
+    SFSelectComponent,
+    SFButtonComponent,
+    SFRadioComponent,
+    SFCheckboxComponent,
     CheckboxGroupControlComponent,
-    FormSwitchComponent,
-    FormDatePickerComponent,
-    FormCommonComponent,
-    FormUploadComponent,
+    SFSwitchComponent,
+    SFDatePickerComponent,
+    SFCommonComponent,
+    SFUploadComponent,
     UploadControlComponent,
-    FormSliderComponent,
-    FormRateComponent,
+    SFSliderComponent,
+    SFRateComponent,
     RatingInputComponent,
 
 
-    DynamicFormComponent,
-    DynamicFieldDirective,
+    SFFormComponent,
+    SFFieldDirective,
   ],
   exports: [
-    DynamicFormComponent,
+    SFFormComponent,
   ],
   entryComponents: [
-    FormInputComponent,
-    FormSelectComponent,
-    FormButtonComponent,
-    FormCheckboxComponent,
+    SFInputComponent,
+    SFSelectComponent,
+    SFButtonComponent,
+    SFCheckboxComponent,
     CheckboxGroupControlComponent,
-    FormRadioComponent,
-    FormSwitchComponent,
-    FormDatePickerComponent,
-    FormCommonComponent,
-    FormUploadComponent,
+    SFRadioComponent,
+    SFSwitchComponent,
+    SFDatePickerComponent,
+    SFCommonComponent,
+    SFUploadComponent,
     UploadControlComponent,
-    FormSliderComponent,
-    FormRateComponent,
+    SFSliderComponent,
+    SFRateComponent,
     RatingInputComponent,
   ],
   providers: [
     // { provide: NZ_ICONS, useValue: icons },
   ]
 })
-export class DynamicFormModule { }
+export class SFFormModule { }

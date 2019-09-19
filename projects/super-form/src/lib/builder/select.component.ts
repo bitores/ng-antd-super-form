@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FieldConfig, FormLayout } from '../interface';
 @Component({
-  selector: 'app-form-select',
+  selector: 'sf-select',
   template: `
   <nz-form-item [formGroup]="group"  *ngIf="config.visible!==false">
     <nz-form-label *ngIf="config.label" [nzSm]="formLayout.labelCol" [nzRequired]="config.required" [nzNoColon]="config.noColon">{{config.label}}</nz-form-label>
@@ -39,7 +39,7 @@ import { FieldConfig, FormLayout } from '../interface';
     `
   ]
 })
-export class FormSelectComponent implements OnInit {
+export class SFSelectComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
   formLayout: FormLayout;
