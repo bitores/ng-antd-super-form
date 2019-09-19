@@ -1,6 +1,6 @@
 {
-  "name": "super-form",
-  "version": "0.0.1",
+  "name": "ng-antd-super-form",
+  "version": "1.0.1",
   "peerDependencies": {
     "@angular/common": "^8.2.4",
     "@angular/core": "^8.2.4",
@@ -8,5 +8,15 @@
     "@angular/platform-browser": "~8.2.3",
     "rxjs": "^6.4.0",
     "ng-zorro-antd": "^8.2.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitores/ng-antd-super-form.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bitores/ng-antd-super-form/issues"
+  },
+  "homepage": "https://github.com/bitores/ng-antd-super-form#readme"
 }

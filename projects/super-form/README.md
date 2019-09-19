@@ -1,24 +1,225 @@
 # SuperForm
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.4.
+1. Form Angular
+> npm i -S ng-antd-super-form
 
-## Code scaffolding
+2. Form Vue
+> npm i -S vue-antd-super-form
 
-Run `ng generate component component-name --project super-form` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project super-form`.
-> Note: Don't forget to add `--project super-form` or else it will be added to the default project in your `angular.json` file. 
+3. Form React
+> npm i -S react-antd-super-form
 
-## Build
 
-Run `ng build super-form` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Publishing
+```html
+<ng-antd-super-form [search]="search" [table]="table"></ng-antd-super-form>
 
-After building your library with `ng build super-form`, go to the dist folder `cd dist/super-form` and run `npm publish`.
+```
 
-## Running unit tests
+```ts
+search:{
+  layout: string;
+  data: object[];
+}
 
-Run `ng test super-form` to execute the unit tests via [Karma](https://karma-runner.github.io).
+table:{
+  columns: object[],
+  action: Function,
+  isInit: boolean;
+}
+```
 
-## Further help
+```js
+data=[
+    {
+      label: '活动标题',
+      type: 'input',
+      key: 'activityName',
+      placeholder: '请输入关键字查询',
+      style: {
+        width: '100px'
+      }
+    },
+    {
+      label: '活动类型',
+      type: 'select',
+      initialValue: '',
+      options: [
+        { label: '全部', value: '' },
+        { label: '直播活动', value: 1 },
+        { label: '普通活动', value: 2 },
+        { label: '免单活动', value: 3 },
+      ],
+      key: 'activityType',
+      style: {
+        width: '100px'
+      }
+    },
+    {
+      label: '活动状态',
+      type: 'select',
+      initialValue: '',
+      options: [
+        { label: '全部', value: '' },
+        { label: '未开始', value: 1 },
+        { label: '进行中', value: 2 },
+        { label: '已结束', value: 3 },
+      ],
+      key: 'activityStatus',
+      style: {
+        width: '100px'
+      }
+    },
+    {
+      label: '时间类型',
+      type: 'select',
+      options: [
+        { label: '创建时间', value: 'gmtCreated' },
+        { label: '开始时间', value: 'startTime' },
+        { label: '结束时间', value: 'endTime' },
+      ],
+      key: 'activityTime',
+      initialValue: 'startTime',
+      style: {
+        width: '100px'
+      }
+    },
+    {
+      type: 'rangepicker',
+      key: ',releaseTime',
+      dateFormat: 'YYYY-MM-DD',
+      onChange: (date, form) => {
+        form.controls['startTime'].setValue(_time(date[0], "YYYY-MM-DD"))
+        form.controls['endTime'].setValue(_time(date[1], "YYYY-MM-DD"))
+      },
+    },
+    {
+      type: 'hidden',
+      key: 'startTime'
+    },
+    {
+      type: 'hidden',
+      key: 'endTime'
+    },
+    {
+      label: '搜索',
+      key: 'submit',
+      type: 'button',
+      disabled: false,
+      nzType: 'primary',
+      icon: 'search',
+      bindSearch: true,
+      onClick: (e, form) => {
+        console.log(e, form)
+      }
+    },
+  ]
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```js
+columns = [
+    {
+      title: '活动ID',
+      dataIndex: 'activityId',
+      key: 'activityId',
+    },
+    {
+      title: '活动类型',
+      dataIndex: 'activityType',
+      key: 'activityType',
+      render: text => {
+        switch (text) {
+          case 1:
+            return '直播活动'
+            break;
+          case 2:
+            return '普通活动'
+            break;
+          case 3:
+            return '免单活动'
+            break;
+
+          default:
+            return '--'
+            break;
+        }
+      },
+    },
+    {
+      title: '活动标题',
+      dataIndex: 'activityName',
+      key: 'activityName',
+    },
+    {
+      title: '活动状态',
+      dataIndex: 'activityStatus',
+      key: 'activityStatus',
+      render: text => {
+        switch (text) {
+          case 1:
+            return '未开始'
+            break;
+          case 2:
+            return '进行中'
+            break;
+          case 3:
+            return '已结束'
+            break;
+
+          default:
+            return '--'
+            break;
+        };
+      },
+    },
+    {
+      title: '上线状态',
+      dataIndex: 'activeState',
+      key: 'activeState',
+      render: text => {
+        return text ? '未上线' : '上线中';
+      },
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'gmtCreated',
+      key: 'gmtCreated',
+      sorter: true,
+      render: text => (text ? _time(text) : '--'),
+    },
+    {
+      title: '开始时间',
+      dataIndex: 'startTime',
+      key: 'startTime',
+      sorter: true,
+      render: text => (text ? _time(text) : '--'),
+    },
+    {
+      title: '结束时间',
+      dataIndex: 'endTime',
+      key: 'endTime',
+      sorter: true,
+      render: text => (text ? _time(text) : '--'),
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      width: '150px',
+      children: [
+        {
+          title: '详情',
+          click(e, row) {
+            console.log(e, row)
+          }
+        },
+        {
+          title: '删除',
+          popconfirm: true,
+          click(e, row) {
+            console.log(e, row)
+          }
+        }
+      ]
+    },
+  ]
+```

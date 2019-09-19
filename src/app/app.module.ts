@@ -12,9 +12,9 @@ import { IconDefinition } from '@ant-design/icons-angular';
 import * as ff from '@ant-design/icons-angular/icons';
 
 // 开发调试用
-import { SuperFormModule } from 'projects/super-form/src/public-api';
+// import { SuperFormModule } from 'projects/super-form/src/public-api';
 // 需要编译后使用
-// import { SuperFormModule } from 'super-form';
+import { SuperFormModule } from 'super-form';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
