@@ -37,8 +37,8 @@ export class SFFormComponent implements OnInit, OnChanges {
 
   constructor(private fb: FormBuilder) { }
 
-  getControlConfigs(configs = []) {
-    let ret = [];
+  getControlConfigs(configs: any = []): any {
+    let ret: any = [];
     for (let index = 0; index < configs.length; index++) {
       const item = configs[index];
       if (!['button', 'buttongroup', 'br', 'divider', 'explain'].includes(item.type)) {
@@ -79,16 +79,16 @@ export class SFFormComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.form) {
       const settedControls = Object.keys(this.form['controls']);
-      const controlToSet = this.controlConfigs.map(item => item.key);
+      const controlToSet = this.controlConfigs.map((item: any) => item.key);
       settedControls
         .filter(controlName => !controlToSet.includes(controlName))
         .forEach(controlName => {
           this.form.removeControl(controlName);
         });
       controlToSet
-        .filter(controlName => !settedControls.includes(controlName))
-        .forEach(controlName => {
-          const config = this.controlConfigs.find(item => item.key === controlName);
+        .filter((controlName: any) => !settedControls.includes(controlName))
+        .forEach((controlName: any) => {
+          const config = this.controlConfigs.find((item: any) => item.key === controlName);
           this.form.addControl(controlName, this.creatControl(config));
         });
     }
@@ -96,7 +96,7 @@ export class SFFormComponent implements OnInit, OnChanges {
 
   creatForm(): FormGroup {
     const form = this.fb.group({});
-    this.controlConfigs.forEach(item => {
+    this.controlConfigs.forEach((item: any) => {
       form.addControl(item.key, this.creatControl(item));
     });
     return form;

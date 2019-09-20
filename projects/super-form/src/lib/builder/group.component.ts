@@ -29,7 +29,7 @@ export class SFGroupComponent implements OnInit {
     //   wrapperCol: null
     // };
 
-    this.config.children.map(item => {
+    this.config.children.map((item: any) => {
       if (item.validations && item.validations.indexOf(Validators.required) > -1) {
         item.required = true;
       }

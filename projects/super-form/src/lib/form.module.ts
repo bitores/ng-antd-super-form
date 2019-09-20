@@ -7,25 +7,21 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 // import { IconDefinition } from '@ant-design/icons-angular';
 // import * as ff from '@ant-design/icons-angular/icons';
 
+import { SFButtonComponent } from './builder/button.component';
+import { SFInputComponent } from './builder/input.component';
+import { SFSelectComponent } from './builder/select.component';
+import { SFRadioComponent } from './builder/radio.component';
+import { SFCheckboxComponent, CheckboxGroupControlComponent } from './builder/checkbox.component';
+import { SFDatePickerComponent } from './builder/datepicker.component';
+import { SFCommonComponent } from './builder/common.component';
+import { SFUploadComponent, UploadControlComponent } from './builder/upload.component';
+import { SFSliderComponent } from './builder/slider.component';
+import { SFGroupComponent } from './builder/group.component';
+import { SFSwitchComponent } from './builder/switch.component';
+import { SFRateComponent } from './builder/rate.component';
 
-import {
-  SFButtonComponent,
-  SFSelectComponent,
-  SFRadioComponent,
-  SFInputComponent,
-  SFCheckboxComponent,
-  SFSwitchComponent,
-  SFDatePickerComponent,
-  SFCommonComponent,
-  SFUploadComponent,
-  UploadControlComponent,
-  SFSliderComponent,
-  SFRateComponent,
-  CheckboxGroupControlComponent,
-  SFGroupComponent
-  // } from './builder/index';  // error
-} from 'projects/super-form/src/lib/builder/index'; // ok
-//
+
+
 import { SFFieldDirective } from './directives/sf-field.directive';
 import { SFFormComponent } from './form.component';
 import { RatingInputComponent } from './builder/rating-input.component';

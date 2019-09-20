@@ -1,8 +1,6 @@
 # ng-antd-super-form
-```
-ng config -g cli.packageManager cnpm
 
-ng new PROJECT
-cd PROJECT
-cnpm install
+[在线案例](https://stackblitz.com/edit/ng-antd-super-form)
+```
+npm i -S ng-antd-super-form
 ```

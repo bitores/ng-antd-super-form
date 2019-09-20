@@ -2,6 +2,7 @@
 
 1. Angular
 > npm i -S ng-antd-super-form
+[在线案例](https://stackblitz.com/edit/ng-antd-super-form)
 
 2. Vue
 > npm i -S vue-antd-super-form

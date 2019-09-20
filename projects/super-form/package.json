@@ -1,13 +1,14 @@
 {
   "name": "ng-antd-super-form",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "peerDependencies": {
     "@angular/common": "^8.2.4",
     "@angular/core": "^8.2.4",
     "@angular/forms": "~8.2.3",
     "@angular/platform-browser": "~8.2.3",
     "rxjs": "^6.4.0",
-    "ng-zorro-antd": "^8.2.1"
+    "ng-zorro-antd": "^8.2.1",
+    "@ant-design/icons-angular": "^8.0.3"
   },
   "repository": {
     "type": "git",
