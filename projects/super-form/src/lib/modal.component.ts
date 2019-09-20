@@ -9,6 +9,7 @@ import { FormLayout } from './interface';
   template: `
   <nz-modal 
     [nzMaskClosable]="maskClosable"
+    [nzWidth]="width"
     [nzVisible]="isVisible" 
     [nzTitle]="title"
     [nzCancelText]="cancelText"

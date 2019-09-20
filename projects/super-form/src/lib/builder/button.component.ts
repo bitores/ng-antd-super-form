@@ -5,12 +5,12 @@ import { FieldConfig, FormLayout } from '../interface';
   selector: 'sf-button',
   template: `
   <nz-form-item  *ngIf="config.visible!==false">
-    <nz-form-control [nzSm]="formLayout.wrapperCol" [nzExtra]="config.extra" [ngSwitch]="config.type">
-      <button *ngSwitchCase="'button'" nz-button (click)="onClick($event)" [nzType]="config.nzType" [nzGhost]="config.ghost" [nzShape]="config.shape" [nzSize]="config.size" [nzLoading]="config.loading" [nzBlock]="config.block" [disabled]="config.disabled"><i nz-icon [nzType]="config.icon" *ngIf="config.icon!=undefined"></i>{{config.label}}<i nz-icon [nzType]="config.rightIcon" *ngIf="config.rightIcon!=undefined"></i></button>
-      <nz-button-group *ngSwitchCase="'buttongroup'">
-        <button *ngFor="let child of config.children" nz-button (click)="handleEvent($event, child.onClick)" [nzType]="child.nzType" [nzGhost]="child.ghost" [nzShape]="child.shape" [nzSize]="child.size" [nzLoading]="child.loading" [nzBlock]="child.block" [disabled]="child.disabled"><i nz-icon [nzType]="child.icon" *ngIf="child.icon!=undefined"></i>{{child.label}}<i nz-icon [nzType]="child.rightIcon" *ngIf="child.rightIcon!=undefined"></i></button>
-      </nz-button-group>
-    </nz-form-control>
+  <nz-form-control [nzSm]="formLayout.wrapperCol" [nzExtra]="config.extra" [ngSwitch]="config.type">
+    <button *ngSwitchCase="'button'" [ngStyle]="config.style" nz-button (click)="onClick($event)" [nzType]="config.nzType" [nzGhost]="config.ghost" [nzShape]="config.shape" [nzSize]="config.size" [nzLoading]="config.loading" [nzBlock]="config.block" [disabled]="config.disabled"><i nz-icon [nzType]="config.icon" *ngIf="config.icon!=undefined"></i>{{config.label}}<i nz-icon [nzType]="config.rightIcon" *ngIf="config.rightIcon!=undefined"></i></button>
+    <nz-button-group *ngSwitchCase="'buttongroup'" [ngStyle]="config.style">
+      <button *ngFor="let child of config.children" nz-button (click)="handleEvent($event, child.onClick)" [nzType]="child.nzType" [nzGhost]="child.ghost" [nzShape]="child.shape" [nzSize]="child.size" [nzLoading]="child.loading" [nzBlock]="child.block" [disabled]="child.disabled"><i nz-icon [nzType]="child.icon" *ngIf="child.icon!=undefined"></i>{{child.label}}<i nz-icon [nzType]="child.rightIcon" *ngIf="child.rightIcon!=undefined"></i></button>
+    </nz-button-group>
+  </nz-form-control>
   </nz-form-item>
   `,
   styles: [
@@ -18,6 +18,22 @@ import { FieldConfig, FormLayout } from '../interface';
     `
   ]
 })
+
+// <ng-container [ngSwitch]="config.type">
+// <button nz-col [nzSm]="formLayout.wrapperCol" *ngSwitchCase="'button'" nz-button (click)="onClick($event)" [nzType]="config.nzType" [nzGhost]="config.ghost" [nzShape]="config.shape" [nzSize]="config.size" [nzLoading]="config.loading" [nzBlock]="config.block" [disabled]="config.disabled"><i nz-icon [nzType]="config.icon" *ngIf="config.icon!=undefined"></i>{{config.label}}<i nz-icon [nzType]="config.rightIcon" *ngIf="config.rightIcon!=undefined"></i></button>
+// <nz-button-group nz-col [nzSm]="formLayout.wrapperCol" *ngSwitchCase="'buttongroup'">
+//   <button *ngFor="let child of config.children" nz-button (click)="handleEvent($event, child.onClick)" [nzType]="child.nzType" [nzGhost]="child.ghost" [nzShape]="child.shape" [nzSize]="child.size" [nzLoading]="child.loading" [nzBlock]="child.block" [disabled]="child.disabled"><i nz-icon [nzType]="child.icon" *ngIf="child.icon!=undefined"></i>{{child.label}}<i nz-icon [nzType]="child.rightIcon" *ngIf="child.rightIcon!=undefined"></i></button>
+// </nz-button-group>
+// </ng-container>
+
+// <nz-form-item  *ngIf="config.visible!==false">
+// <nz-form-control [nzSm]="formLayout.wrapperCol" [nzExtra]="config.extra" [ngSwitch]="config.type">
+//   <button *ngSwitchCase="'button'" nz-button (click)="onClick($event)" [nzType]="config.nzType" [nzGhost]="config.ghost" [nzShape]="config.shape" [nzSize]="config.size" [nzLoading]="config.loading" [nzBlock]="config.block" [disabled]="config.disabled"><i nz-icon [nzType]="config.icon" *ngIf="config.icon!=undefined"></i>{{config.label}}<i nz-icon [nzType]="config.rightIcon" *ngIf="config.rightIcon!=undefined"></i></button>
+//   <nz-button-group *ngSwitchCase="'buttongroup'">
+//     <button *ngFor="let child of config.children" nz-button (click)="handleEvent($event, child.onClick)" [nzType]="child.nzType" [nzGhost]="child.ghost" [nzShape]="child.shape" [nzSize]="child.size" [nzLoading]="child.loading" [nzBlock]="child.block" [disabled]="child.disabled"><i nz-icon [nzType]="child.icon" *ngIf="child.icon!=undefined"></i>{{child.label}}<i nz-icon [nzType]="child.rightIcon" *ngIf="child.rightIcon!=undefined"></i></button>
+//   </nz-button-group>
+// </nz-form-control>
+// </nz-form-item>
 export class SFButtonComponent implements OnInit {
   group: FormGroup;
   config: FieldConfig;
@@ -34,6 +50,7 @@ export class SFButtonComponent implements OnInit {
 
     this.config = {
       bindSearch: false,
+      style: null,
       ...config,
     }
   }
@@ -46,7 +63,7 @@ export class SFButtonComponent implements OnInit {
         this.group.controls[i].updateValueAndValidity();
       }
       callback && callback(e, this.group)
-      this.autoSearchEvent();
+      this.autoSearchEvent && this.autoSearchEvent();
     } else {
       callback && callback(e, this.group)
     }

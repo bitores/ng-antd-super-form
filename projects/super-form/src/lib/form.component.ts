@@ -7,7 +7,7 @@ import { FieldConfig } from './interface';
 @Component({
   selector: 'sf-form',
   template: `
-  <form nz-form (ngSubmit)="handleSubmit($event)" [formGroup]="form" [nzLayout]="layout" class="dynamic-form">
+  <form nz-form [formGroup]="form" [nzLayout]="layout">
     <ng-container *ngFor="let config of configs" sfField [config]="config" [group]="form" [formLayout]="formLayout" [autoSearchEvent]="autoSearchEvent"></ng-container>
   </form>
   `,
@@ -28,7 +28,7 @@ export class SFFormComponent implements OnInit, OnChanges {
   };
   @Output() submit = new EventEmitter<any>();
   get controlConfigs() {
-    return this.configs.filter(item => !['button', 'buttongroup', 'br', 'divider', 'explain'].includes(item.type));
+    return this.getControlConfigs(this.configs)
   }
   get value() { return this.form.value; }
   get valid() { return this.form.valid; }
@@ -36,6 +36,23 @@ export class SFFormComponent implements OnInit, OnChanges {
   form: FormGroup;
 
   constructor(private fb: FormBuilder) { }
+
+  getControlConfigs(configs = []) {
+    let ret = [];
+    for (let index = 0; index < configs.length; index++) {
+      const item = configs[index];
+      if (!['button', 'buttongroup', 'br', 'divider', 'explain'].includes(item.type)) {
+        if (item.type === 'group') {
+          let groups = this.getControlConfigs(item.children)
+          ret.push(...groups);
+        } else {
+          ret.push(item)
+        }
+      }
+    }
+
+    return ret;
+  }
 
   ngOnInit() {
     this.layout = ['inline', 'horizontal', 'vertical'].indexOf(this.layout) > -1 ? this.layout : 'horizontal';

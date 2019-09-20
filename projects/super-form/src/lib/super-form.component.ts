@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { filter } from './utils';
 import { SFTableComponent } from './table.component';
 import { SFFormComponent } from './form.component';
-import { FormLayout } from './interface';
+import { FormLayout, FieldConfig } from './interface';
 
 
 @Component({
@@ -35,7 +35,7 @@ import { FormLayout } from './interface';
 })
 export class SuperFormComponent {
   @Input() search: {
-    data?: any;
+    data?: FieldConfig[];
     layout: string;
     formLayout: FormLayout;
   };

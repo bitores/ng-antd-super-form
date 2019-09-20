@@ -153,6 +153,7 @@ export class AppComponent implements AfterViewInit {
   dataSource = [];
 
   search = {}
+  modalSearch = {}
   table = {}
 
   modal: SFModalComponent;
@@ -161,6 +162,10 @@ export class AppComponent implements AfterViewInit {
   }
 
   constructor(private cdr: ChangeDetectorRef) {
+    this.modalSearch = {
+      // layout:
+      data: this.formFieldConfigs
+    }
     this.search = {
       layout: 'inline',
       data: [

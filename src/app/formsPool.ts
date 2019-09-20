@@ -314,6 +314,9 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
           offset: 6
         }
       },
+      style: {
+        span: 10
+      },
       children: [
         {
           label: 'Go back',
@@ -338,38 +341,49 @@ export const formsPool: { [formType: string]: FieldConfig[] } = {
       ]
     },
     {
-      label: '搜索',
-      key: 'submit',
-      type: 'button',
-      disabled: false,
-      nzType: 'primary',
-      formLayout: {
-        wrapperCol: {
-          span: 14,
-          offset: 6
-        }
-      },
-      icon: 'cloud',
-      bindSearch: true,
-      onClick: (e, form) => {
-        console.log(e, form)
+      type: 'group',
+      key: 'group',
+      children: [
+        // {
+        //   label: '是否',
+        //   type: 'switch',
+        //   key: 'isTTTT',
+        //   validations: [Validators.required],
+        //   errorTip: '请选择',
+        //   checkedChildren: '开',
+        //   unCheckedChildren: '关',
+        //   // initialValue: false,
+        //   onChange(v) {
+        //     console.log(v)
+        //   }
+        // },
+        {
+          label: '搜索',
+          key: 'submit',
+          type: 'button',
+          disabled: false,
+          nzType: 'primary',
 
-      }
-    },
-    {
-      formLayout: {
-        wrapperCol: {
-          span: 14,
-          offset: 6
+          style: {
+            'marginLeft': "200px"
+          },
+          icon: 'cloud',
+          bindSearch: true,
+          onClick: (e, form) => {
+            console.log(e, form)
+          }
+        },
+        {
+          label: '重置',
+          key: '',
+          type: 'button',
+          onClick: (e, form) => {
+            console.log(form, form.reset)
+            form.reset()
+          }
         }
-      },
-      label: '重置',
-      key: '',
-      type: 'button',
-      onClick: (e, form) => {
-        console.log(form, form.reset)
-        form.reset()
-      }
+      ]
     }
+
   ]
 };

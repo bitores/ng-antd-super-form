@@ -14,6 +14,7 @@ import { SFSliderComponent } from './slider.component';
 import { SFRateComponent } from './rate.component';
 
 import { Field } from '../interface';
+import { SFGroupComponent } from './group.component';
 
 
 export const components: { [type: string]: Type<Field> } = {
@@ -38,7 +39,8 @@ export const components: { [type: string]: Type<Field> } = {
   slider: SFSliderComponent,
   br: SFCommonComponent,
   upload: SFUploadComponent,
-  rate: SFRateComponent
+  rate: SFRateComponent,
+  group: SFGroupComponent
 };
 
 export {
@@ -55,4 +57,5 @@ export {
   UploadControlComponent,
   SFSliderComponent,
   SFRateComponent,
+  SFGroupComponent,
 }

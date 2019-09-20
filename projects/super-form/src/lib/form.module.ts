@@ -21,7 +21,8 @@ import {
   UploadControlComponent,
   SFSliderComponent,
   SFRateComponent,
-  CheckboxGroupControlComponent
+  CheckboxGroupControlComponent,
+  SFGroupComponent
   // } from './builder/index';  // error
 } from 'projects/super-form/src/lib/builder/index'; // ok
 //
@@ -55,6 +56,7 @@ import { RatingInputComponent } from './builder/rating-input.component';
     SFSliderComponent,
     SFRateComponent,
     RatingInputComponent,
+    SFGroupComponent,
 
 
     SFFormComponent,
@@ -78,6 +80,7 @@ import { RatingInputComponent } from './builder/rating-input.component';
     SFSliderComponent,
     SFRateComponent,
     RatingInputComponent,
+    SFGroupComponent,
   ],
   providers: [
     // { provide: NZ_ICONS, useValue: icons },
